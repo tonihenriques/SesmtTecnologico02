@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]>  <html class="ie ie6 lte9 lte8 lte7"> <![endif]-->
+<!--[if IE 7]>     <html class="ie ie7 lte9 lte8 lte7"> <![endif]-->
+<!--[if IE 8]>     <html class="ie ie8 lte9 lte8"> <![endif]-->
+<!--[if IE 9]>     <html class="ie ie9 lte9"> <![endif]-->
+<!--[if gt IE 9]>  <html> <![endif]-->
+<!--[if !IE]><!-->
+<html>
+<!--<![endif]-->
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link href="~/Content/Images/favicon.ico" rel="shortcut icon" />
+    <title>@System.Configuration.ConfigurationManager.AppSettings["Web:NomeModulo"] - @ViewBag.Title</title>
+
+    @{
+        var path = string.Empty;
+        if (Request.ApplicationPath.Length > 1)
+        {
+            path = Request.ApplicationPath;
+        }
+    }
+
+    @RenderSection("Stylesheets", required: false)
+    @Styles.Render("~/bundles/ace_css_master")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <link href="~/Content/Ace/Chosen/chosen.min.css" rel="stylesheet" />
+
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="~/Content/Ace/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/Content/Ace/css/font-awesome.css" />
+
+    <!-- page specific plugin styles -->
+    <link rel="stylesheet" href="~/Components/jquery.gritter/css/jquery.gritter.css" />
+
+
+
+
+    <!-- text fonts -->
+    <link rel="stylesheet" href="~/Content/Ace/css/ace-fonts.css" />
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="~/Content/Ace/css/ace.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+    @*@Scripts.Render("~/bundles/modernizr")*@
+
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="~/Content/Ace/css/ace-part2.css" class="ace-main-stylesheet" />
+    <![endif]-->
+    <link rel="stylesheet" href="~/Content/Ace/css/ace-skins.css" />
+    <link rel="stylesheet" href="~/Content/Ace/css/ace-rtl.css" />
+
+    <!--[if lte IE 9]>
+      <link rel="stylesheet" href="~/Content/Ace/css/ace-ie.css" />
+    <![endif]-->
+    <!-- inline styles related to this page -->
+    <!-- ace settings handler -->
+    <script src="~/Scripts/Ace/ace-extra.js"></script>
+    <link rel="stylesheet" href="~/components/chosen/chosen.css" />
+
+    <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+    <!--[if lte IE 8]>
+    <script src="~/Components/html5shiv/dist/html5shiv.min.js"></script>
+    <script src="~/Components/respond/dest/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="no-skin">
+
+    @{ Html.RenderPartial("_Cabecalho"); }
+
+    <div class="main-container" id="main-container">
+        <script type="text/javascript">
+            try { ace.settings.check('main-container', 'fixed') } catch (e) { }
+        </script>
+
+        @* ######################################### Menus à esquerda ################################################## *@
+        @if (ViewBag.OcultarMenus == null || !ViewBag.OcultarMenus)
+        {
+            <div id="sidebar" class="sidebar responsive sidebar-fixed sidebar-scroll push_away">
+                <script type="text/javascript">
+                    try { ace.settings.check('sidebar', 'fixed') } catch (e) { }
+                </script>
+
+                @{
+                    Html.RenderPartial("_MenuEsquerda");
+                }
+
+                <script type="text/javascript">
+                    try { ace.settings.check('sidebar', 'collapsed') } catch (e) { }
+                </script>
+            </div>
+        }
+
+        <div class="main-content">
+            <div class="main-content-inner">
+
+                @if (ViewBag.OcultarMenus == null || !ViewBag.OcultarMenus)
+                {
+                    @* ############################# Breadcrumbs - semicabeçalho *@
+                    <div class="breadcrumbs breadcrumbs-fixed" id="breadcrumbs" style="height: 45px">
+                        <script type="text/javascript">
+                            try { ace.settings.check('breadcrumbs', 'fixed') } catch (e) { }
+                        </script>
+
+                        @* ####################### Informações do Módulo *@
+                        <ul class="breadcrumb">
+                            <li>
+                                <p style="margin: 0 0 0;">
+                                    @* ################################ Ícone característico do módulo *@
+                                    <i class="ace-icon fa fa-flash orange home-icon"></i>
+
+                                    <span style="font-size: 19px; color: #777; font-weight: 700">@System.Configuration.ConfigurationManager.AppSettings["Web:NomeModulo"]</span>
+                                </p>
+                                <p style="margin: 0 0 0; line-height: 9px">
+                                    <span style="font-size: 10px; color: #777; font-weight: 500">@System.Configuration.ConfigurationManager.AppSettings["Web:NomeCompletoModulo"]</span>
+                                </p>
+                            </li>
+
+                        </ul>
+
+                        <ul class="LoadingLayout" style="float: right; list-style: none; margin-top: 3px; display: none;">
+                            <li>
+                                <span class="labelLoadingLayout" style="font-size: 11px;">Aguarde!</span>
+                                &nbsp;&nbsp;
+                                @*<img class="imgLoading" src="~/Content/Images/ajax-loading.GIF" />*@
+                                <i id="imgLoadingLayout" style="margin-top: 6px;" class="ace-icon fa fa-spinner fa-spin blue bigger-125"></i>
+                            </li>
+                        </ul>
+
+                    </div>
+                }
+
+                <div class="page-content">
+                    <div class="row">
+                        <div class="col-xs-12">
+
+                            @RenderSection("Sliders", required: false)
+
+                            
+
+                            @RenderBody()
+
+                        </div>
+                    </div>
+                </div>
+
+
+                @*<div class="main-content">
+                        <div class="main-content-inner">
+
+                            <div class="page-content">
+
+                                @RenderSection("Sliders", required: false)
+
+                                <div class="page-content-area" data-ajax-content="true">
+
+                                    @RenderBody()
+
+                                </div><!-- /.page-content-area -->
+
+                            </div>
+                        </div>
+                    </div>*@
+
+
+
+            </div>
+        </div>
+
+        @{
+            Html.RenderPartial("_Footer");
+        }
+
+
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+        </a>
+    </div>
+
+    <!--[if !IE]> -->
+    <script src="~/Components/jquery/dist/jquery.js"></script>
+    <!-- <![endif]-->
+    <!--[if IE]>
+        <script src="~/Components/jquery.1x/dist/jquery.js"></script>
+    <![endif]-->
+
+    <script src="~/Components/bootstrap/dist/js/bootstrap.js"></script>
+
+    <!-- page specific plugin scripts -->
+
+    <script src="~/Components/jquery.gritter/js/jquery.gritter.js"></script>
+    <script src="~/Components/_mod/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+
+    <!-- ace scripts -->
+
+    <script src="~/Scripts/Ace/src/elements.scroller.js"></script>
+    <script src="~/Scripts/Ace/src/elements.colorpicker.js"></script>
+    <script src="~/Scripts/Ace/src/elements.fileinput.js"></script>
+    <script src="~/Scripts/Ace/src/elements.typeahead.js"></script>
+    <script src="~/Scripts/Ace/src/elements.wysiwyg.js"></script>
+    <script src="~/Scripts/Ace/src/elements.spinner.js"></script>
+    <script src="~/Scripts/Ace/src/elements.treeview.js"></script>
+    <script src="~/Scripts/Ace/src/elements.wizard.js"></script>
+    <script src="~/Scripts/Ace/src/elements.aside.js"></script>
+    <script src="~/Scripts/Ace/src/ace.js"></script>
+    <script src="~/Scripts/Ace/src/ace.basics.js"></script>
+    <script src="~/Scripts/Ace/src/ace.scrolltop.js"></script>
+    <script src="~/Scripts/Ace/src/ace.ajax-content.js"></script>
+    <script src="~/Scripts/Ace/src/ace.touch-drag.js"></script>
+    <script src="~/Scripts/Ace/src/ace.sidebar.js"></script>
+    <script src="~/Scripts/Ace/src/ace.sidebar-scroll-1.js"></script>
+    <script src="~/Scripts/Ace/src/ace.submenu-hover.js"></script>
+    <script src="~/Scripts/Ace/src/ace.widget-box.js"></script>
+    <script src="~/Scripts/Ace/src/ace.settings.js"></script>
+    <script src="~/Scripts/Ace/src/ace.settings-rtl.js"></script>
+    <script src="~/Scripts/Ace/src/ace.settings-skin.js"></script>
+    <script src="~/Scripts/Ace/src/ace.widget-on-reload.js"></script>
+    <script src="~/Scripts/Ace/src/ace.searchbox-autocomplete.js"></script>
+
+    <link rel="stylesheet" href="~/Content/Ace/css/ace.onpage-help.css" />
+    <link rel="stylesheet" href="~/Content/Ace/css/themes/sunburst.css" />
+    <link rel="stylesheet" href="~/components/chosen/chosen.css" />
+
+    <script src="~/Components/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/Components/jquery-validation/dist/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Components/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
+
+    <script src="~/Scripts/Custom/custom-functions.js"></script>
+    <script src="~/Scripts/Custom/custom-master.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+        <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+    </a>
+    </div>
+
+    <!--[if !IE]> -->
+    @Scripts.Render("~/bundles/jquery")
+    <!--<![endif]-->
+    <!--[if IE]>
+    <script src="@path/Scripts/jQuery/jquery1x.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement)
+            document.write("<script src='@path/Scripts/Ace/jQ/jquery.mobile.custom.js'>" + "<" + "/script>");
+    </script>
+
+    <!--[if lte IE 8]>
+    <script src="@path/Scripts/Ace/excanvas.js"></script>
+    <![endif]-->
+    @Scripts.Render("~/bundles/ace_js_master")
+
+    <script src="~/Scripts/Custom/custom-functions.js"></script>
+    <script src="~/Scripts/Custom/custom-master.js"></script>
+
+    <script type="text/javascript">
+        ace.vars['base'] = '..';
+        baseApplicationURL = '@Request.ApplicationPath';
+
+        if (baseApplicationURL.length == 1) {
+            baseApplicationURL = "";
+        }
+
+        (
+            function () {
+                var funcaoAlvo = $.ajax;
+
+                $.ajax = function () {
+
+                    if (parent.baseApplicationURL && parent.baseApplicationURL != '/' && arguments[0].url != null) {
+
+                        if (arguments[0].url.indexOf("http:") == -1 && arguments[0].url.indexOf("https:") == -1) {
+
+                            var fixedUrl = arguments[0].url;
+                            fixedUrl = fixedUrl.indexOf("/") == 0 ? parent.baseApplicationURL + fixedUrl : parent.baseApplicationURL + '/' + fixedUrl;
+
+                            arguments[0].url = fixedUrl;
+                        }
+
+                    }
+
+                    funcaoAlvo(arguments[0]);
+                };
+            }
+        )();
+    </script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("Scripts", required: false)
+    <script src="~/Scripts/Ace/chosen.jquery.min.js"></script>
+</body>
+</html>
