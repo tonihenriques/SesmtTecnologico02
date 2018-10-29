@@ -25,6 +25,13 @@ function SalvarAtividadeEstabelecimento(Acao, idAtividadeEstabelecimento, idAloc
 };
 
 
+
+
+
+
+
+
+
 function OnSuccessCadastrarAtividadeAlocada(data) {
     $('#formCadastroAtividadeAlocada').removeAttr('style');
     $(".LoadingLayout").hide();

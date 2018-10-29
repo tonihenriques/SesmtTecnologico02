@@ -57,11 +57,15 @@
                                            if (@item.IDAtividadesDoEstabelecimento == @iImagens.idAtividadesDoEstabelecimento)
                                            {
 
-                                                <div class="hidden-sm hidden-xs action-buttons">
-                                                    <a class="green" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento'); return false;">
-                                                        <i class="ace-icon fa fa-search bigger-130" title="Medida de Controle Existente"></i>
-                                                    </a>
-                                                </div>
+                                        <div class="hidden-sm hidden-xs action-buttons">
+                                            <a class="green" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento'); return false;">
+                                                <i class="ace-icon fa fa-search bigger-130" title="Medida de Controle Existente"></i>
+                                            </a>
+                                            <a class="red2" href="#" onclick="Exposicao('@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento','@iImagens.AtividadesDoEstabelecimento.IDAlocacao');" data-rel="tooltip" title="Cadastrar Exposição ">
+                                                <i class="ace-icon fa fa-bolt bigger-130"></i>
+                                                
+                                            </a>
+                                        </div>
                                            }
                                            else
                                            {

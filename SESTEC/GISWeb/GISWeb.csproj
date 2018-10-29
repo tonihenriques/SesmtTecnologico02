@@ -368,6 +368,7 @@
     <Compile Include="Controllers\EstabelecimentoAmbienteController.cs" />
     <Compile Include="Controllers\EstabelecimentoController.cs" />
     <Compile Include="Controllers\EventoPerigosoController.cs" />
+    <Compile Include="Controllers\ExposicaoController.cs" />
     <Compile Include="Controllers\FuncaoController.cs" />
     <Compile Include="Controllers\MedidasDeControleController.cs" />
     <Compile Include="Controllers\PlanoDeAcaoController.cs" />
@@ -496,6 +497,8 @@
     <Content Include="Views\PlanoDeAcao\Novo.cshtml" />
     <Content Include="Views\PlanoDeAcao\_PlanoDeAcao.cshtml" />
     <Content Include="Views\PlanoDeAcao\_Detalhes.cshtml" />
+    <Content Include="Views\Exposicao\Novo.cshtml" />
+    <Content Include="Views\Exposicao\_Detalhes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

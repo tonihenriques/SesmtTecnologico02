@@ -42,39 +42,6 @@
     }));
     
 });
-//function Novo(IDAtividadesDoEstabelecimento) {
-
-//    $(".LoadingLayout").show();
-
-//    $.ajax({
-//        method: "POST",
-//        url: "/Exposicao/Novo",
-//        data: { IDAtividadesDoEstabelecimento: IDAtividadesDoEstabelecimento },
-//        error: function (erro) {
-//            $(".LoadingLayout").hide();
-//            ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')
-//        },
-//        success: function (content) {
-//            $(".LoadingLayout").hide();
-
-//            if (content.data != null) {
-//                bootbox.dialog({
-//                    message: content.data,
-//                    title: "<span class='bigger-110'>Cadastrar Exposição</span>",
-//                    backdrop: true,
-//                    locale: "br",
-//                    buttons: {},
-//                    onEscape: true
-//                });
-//            }
-//            else {
-//                TratarResultadoJSON(content.resultado);
-//            }
-
-//        }
-//    });
-
-//}
 
   
 

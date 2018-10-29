@@ -114,6 +114,7 @@
     <Compile Include="Entidades\Estabelecimento.cs" />
     <Compile Include="Entidades\EstabelecimentoAmbiente.cs" />
     <Compile Include="Entidades\EventoPerigoso.cs" />
+    <Compile Include="Entidades\Exposicao.cs" />
     <Compile Include="Entidades\Funcao.cs" />
     <Compile Include="Entidades\MedidasDeControleExistentes.cs" />
     <Compile Include="Entidades\PlanoDeAcao.cs" />

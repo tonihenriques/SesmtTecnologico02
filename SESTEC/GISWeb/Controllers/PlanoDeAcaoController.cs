@@ -112,8 +112,8 @@ namespace GISWeb.Controllers
             if (PlanoDeAcaoBusiness.Consulta.Any(u =>string.IsNullOrEmpty(u.UsuarioExclusao) && (u.Identificador.Equals(IDIdentificador))))
                 
             {
-                return Json(new { resultado = new RetornoJSON() { URL = Url.Action("Detalhes", "PlanoDeAcao", new { IDPlanoDeAcao = IDIdentificador }) } });
-                //return Json(new { resultado = new RetornoJSON() { Erro = "Já existe um Plano de Ação em andamento para este Risco!" } });
+                //return Json(new { resultado = new RetornoJSON() { URL = Url.Action("Detalhes", "PlanoDeAcao", new { IDPlanoDeAcao = IDIdentificador }) } });
+                return Json(new { resultado = new RetornoJSON() { Erro = "Já existe um Plano de Ação em andamento para este Risco!" } });
             }
 
             if(MedidasDeControleBusiness.Consulta.Any(u=>string.IsNullOrEmpty(u.UsuarioExclusao) &&(u.IDAtividadesDoEstabelecimento.Equals(IDIdentificador))))

@@ -106,40 +106,42 @@ function DeletarEmpresa(IDAdmissao, Nome) {
 }
 
 
-//function AlocarEmpregado(IDAdmissao, IDEmpregado, IDEmpresa) {
-
-//    var callback = function () {
-//        $('.LoadingLayout').show();
-//        $('#dynamic-table').css({ opacity: "0.5" });
-
-//        $.ajax({
-//            method: "POST",
-//            url: "/Alocacao/Novo",
-//            data: { IDAdmissao: IDAdmissao, IDEmpregado: IDEmpregado, IDEmpresa: IDEmpresa },
-//            error: function (erro) {
-//                $(".LoadingLayout").hide();
-//                $("#dynamic-table").css({ opacity: '' });
-//                ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')
-//            },
-//            success: function (content) {
-//                $('.LoadingLayout').hide();
-//                $("#dynamic-table").css({ opacity: '' });
-
-//                TratarResultadoJSON(content.resultado);
-
-//                if (content.resultado.Sucesso != null && content.resultado.Sucesso != "") {
-//                    $("#linha-" + IDAdmissao).remove();
-//                }
-//            }
-//        });
-//    };
 
 
 
-//   ExibirMensagemDeConfirmacaoSimples("Alocar este Empregado?", "Alocação de Empregado", callback, "btn-danger");
+function Exposicao(idAtividadeDoEstabelecimento, idAlocacao) {
 
-    
-//}
+    $(".LoadingLayout").show();
+
+    $.ajax({
+        method: "POST",
+        url: "/Exposicao/Novo",
+        data: { idAtividadeDoEstabelecimento: idAtividadeDoEstabelecimento, idAlocacao: idAlocacao},
+        error: function (erro) {
+            $(".LoadingLayout").hide();
+            ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')
+        },
+        success: function (content) {
+            $(".LoadingLayout").hide();
+
+            if (content.data != null) {
+                bootbox.dialog({
+                    message: content.data,
+                    title: "<span class='bigger-110'>Cadastrar Exposicao do Empregado</span>",
+                    backdrop: true,
+                    locale: "br",
+                    buttons: {},
+                    onEscape: true
+                });
+            }
+            else {
+                TratarResultadoJSON(content.resultado);
+            }
+
+        }
+    });
+
+};
 
 
 function AlocarEmpregado(IDAdmissao, IDEmpregado, IDEmpresa) {
