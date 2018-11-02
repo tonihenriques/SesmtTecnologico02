@@ -45,16 +45,3 @@
 
   
 
-function OnSuccessCadastrarExposicao(data) {
-    $('#formCadastroExposicao').removeAttr('style');
-    $(".LoadingLayout").hide();
-    $('#btnSalvar').show();
-    TratarResultadoJSON(data.resultado);
-    ExibirMsgGritter(data.resultado);
-}
-
-function OnBeginCadastrarExposicao() {
-    $(".LoadingLayout").show();
-    $('#blnSalvar').hide();
-    $("#formCadastroExposicao").css({ opacity: "0.5" });
-}

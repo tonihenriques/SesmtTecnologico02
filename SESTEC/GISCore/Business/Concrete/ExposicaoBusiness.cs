@@ -16,8 +16,6 @@ namespace GISCore.Business.Concrete
         public override void Inserir(Exposicao pExposicao)
         {
 
-
-
             if (Consulta.Any(u => u.IDExposicao.Equals(pExposicao.IDExposicao)))
                 throw new InvalidOperationException("Não é possível inserir esta exposição, pois já existe uma exposição com este ID.");
             

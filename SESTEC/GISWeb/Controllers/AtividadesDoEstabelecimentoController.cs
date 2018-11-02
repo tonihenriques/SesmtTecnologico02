@@ -233,6 +233,9 @@ namespace GISWeb.Controllers
 
         public ActionResult EstabelecimentoAmbienteAlocado(string idEstabelecimento, string idAlocacao)
         {
+
+            
+
            // ViewBag.Imagens = AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDEstabelecimento.Equals(idEstabelecimento))).ToList();
             try
             {
@@ -251,7 +254,9 @@ namespace GISWeb.Controllers
                                      select new AtividadeAlocada
                                      {
                                          idAtividadesDoEstabelecimento = Aloca.idAtividadesDoEstabelecimento,
-                                         
+                                         IDAtividadeAlocada = Aloca.IDAtividadeAlocada,
+                                         idAlocacao=Aloca.idAlocacao,
+
                                          AtividadesDoEstabelecimento = new AtividadesDoEstabelecimento()
                                          {
                                             IDAtividadesDoEstabelecimento = Aloca.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento,
@@ -260,7 +265,8 @@ namespace GISWeb.Controllers
                                             PossiveisDanos = Aloca.AtividadesDoEstabelecimento.PossiveisDanos,
                                             IDEstabelecimentoImagens = Aloca.AtividadesDoEstabelecimento.IDEstabelecimentoImagens,
                                             Imagem = Aloca.AtividadesDoEstabelecimento.Imagem,
-                                            NomeDaImagem = Aloca.AtividadesDoEstabelecimento.NomeDaImagem
+                                            NomeDaImagem = Aloca.AtividadesDoEstabelecimento.NomeDaImagem,
+                                            IDEstabelecimento=Aloca.AtividadesDoEstabelecimento.IDEstabelecimento
 
                                          }
 

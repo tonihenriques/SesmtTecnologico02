@@ -109,14 +109,14 @@ function DeletarEmpresa(IDAdmissao, Nome) {
 
 
 
-function Exposicao(idAtividadeDoEstabelecimento, idAlocacao) {
+function Exposicao(IDAtividadeAlocada, idAlocacao, idEstabelcimento) {
 
     $(".LoadingLayout").show();
 
     $.ajax({
         method: "POST",
         url: "/Exposicao/Novo",
-        data: { idAtividadeDoEstabelecimento: idAtividadeDoEstabelecimento, idAlocacao: idAlocacao},
+        data: { IDAtividadeAlocada: IDAtividadeAlocada, idAlocacao: idAlocacao, idEstabelcimento: idEstabelcimento},
         error: function (erro) {
             $(".LoadingLayout").hide();
             ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')
@@ -255,6 +255,9 @@ function EstabelecimentoAmbienteAlocado(idEstabelecimento, idAlocacao) {
                 });
             }
             else {
+
+               
+
                 TratarResultadoJSON(content.resultado);
             }
 
@@ -300,4 +303,21 @@ function EstabelecimentoAmbienteAlocado(idEstabelecimento, idAlocacao) {
 
         ExibirMensagemDeConfirmacaoSimples("Tem certeza que deseja desalocar este empregado?", "Desalocar Empregado", callback, "btn-danger");
     };
-    
+
+
+    function OnSuccessCadastrarExposicao(data) {
+        $('#formCadastroExposicao').removeAttr('style');
+        $(".LoadingLayout").hide();
+        $('#btnSalvar').show();
+        TratarResultadoJSON(data.resultado);
+        //ExibirMsgGritter(data.resultado);
+        $('#dtExpo').disableSelection();
+        $('#dtExpo01').disableSelection();
+    }
+
+    function OnBeginCadastrarExposicao() {
+        $(".LoadingLayout").show();
+        $('#blnSalvar').hide();
+        $("#formCadastroExposicao").css({ opacity: "0.5" });
+
+    }

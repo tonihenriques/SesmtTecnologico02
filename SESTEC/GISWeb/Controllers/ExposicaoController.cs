@@ -47,24 +47,35 @@ namespace GISWeb.Controllers
         [Inject]
         public IExposicaoBusiness ExposicaoBusiness { get; set; }
 
+        [Inject]
+        public IAtividadeAlocadaBusiness AtividadeAlocadaBusiness { get; set; }
+
+
 
         #endregion
 
 
-        
-        public ActionResult Novo(Exposicao oExposicao, string idAtividadeDoEstabelecimento, string idAlocacao)
+
+        public ActionResult Novo(Exposicao oExposicao, string IDAtividadeAlocada, string idAlocacao, string idEstabelcimento)
         {
+            if(ExposicaoBusiness.Consulta.Any(p=>p.idAtividadeAlocada.Equals(IDAtividadeAlocada)&&p.idAlocacao.Equals(idAlocacao)))
+            {
+                return Json(new { resultado = new RetornoJSON() { Alerta = "Já existe uma exposição para esta Alocação!" } });
+                
+            }
+            else { 
            
-            ViewBag.AtivEstab = idAtividadeDoEstabelecimento;
+            ViewBag.AtivEstab = IDAtividadeAlocada;
             ViewBag.IDaloc = idAlocacao;
-            //ViewBag.AdmissaoID = idAdmissao;
-            ViewBag.Imagens = AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDAtividadesDoEstabelecimento.Equals(idAtividadeDoEstabelecimento))).ToList();
+            ViewBag.IDEstab= idEstabelcimento;
+            ViewBag.Imagens = AtividadeAlocadaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDAtividadeAlocada.Equals(IDAtividadeAlocada))).ToList();
 
             var Aloc = (from a in AlocacaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDAlocacao.Equals(idAlocacao))).ToList()
                         //group a by a.IDAlocacao into g
                         select new
                         {
-                            id = a.IDAlocacao
+                            id = a.IDAlocacao,
+                            
                             //lista = g.Key,
                         }
 
@@ -108,19 +119,15 @@ namespace GISWeb.Controllers
                     return Json(new { resultado = new RetornoJSON() { Erro = ex.GetBaseException().Message } });
                 }
             }
+            }
 
             //return View();
         }
-
-
         
-
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Cadastrar(Exposicao oExposicao, string AtivEstab, string AlocID)
+        public ActionResult Cadastrar(Exposicao oExposicao, string idEstabelcimento)
         {
             
 
@@ -130,16 +137,23 @@ namespace GISWeb.Controllers
                 {
                     
                    // oExposicao.idAtividadesDoEstabelecimento = AtivEstab;
-                    oExposicao.idAlocacao = AlocID;
+                   // oExposicao.idAlocacao = AlocID;
                    
 
                     ExposicaoBusiness.Inserir(oExposicao);
 
-                    TempData["MensagemSucesso"] = "A Exposição foi registrada com sucesso.";
 
-                    
 
-                    return Json(new { resultado = new RetornoJSON() { URL = Url.Action("Novo", "Alocacao", new { AdmissaoID = "" }) } });
+
+
+                    //TempData["MensagemSucesso"] = "A Exposição foi registrada com sucesso.";  
+
+                    // return Json(new { data = RenderRazorViewToString("_DetalhesAmbienteAlocado", oExposicao) }); 
+
+                    //return Json(new { resultado = new RetornoJSON() { URL = Url.Action("PerfilEmpregados", "Admissao", new { AdmissaoID = oExposicao.idAlocacao }) } });
+                    return Json(new { resultado = new RetornoJSON() { Sucesso = "Exposição Cadastrada com sucesso!" } });
+
+
                 }
                 catch (Exception ex)
                 {

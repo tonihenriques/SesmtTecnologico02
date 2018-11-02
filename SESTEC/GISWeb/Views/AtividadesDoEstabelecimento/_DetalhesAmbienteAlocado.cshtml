@@ -61,7 +61,7 @@
                                             <a class="green" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento'); return false;">
                                                 <i class="ace-icon fa fa-search bigger-130" title="Medida de Controle Existente"></i>
                                             </a>
-                                            <a class="red2" href="#" onclick="Exposicao('@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento','@iImagens.AtividadesDoEstabelecimento.IDAlocacao');" data-rel="tooltip" title="Cadastrar Exposição ">
+                                            <a class="red2" href="#" onclick="Exposicao('@iImagens.IDAtividadeAlocada','@iImagens.idAlocacao','@iImagens.AtividadesDoEstabelecimento.IDEstabelecimento');" data-rel="tooltip" title="Cadastrar Exposição ">
                                                 <i class="ace-icon fa fa-bolt bigger-130"></i>
                                                 
                                             </a>
@@ -69,11 +69,16 @@
                                            }
                                            else
                                            {
-                                               <div class="hidden-sm hidden-xs action-buttons">
-                                                    <a class="red" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento'); return false;">
-                                                        <i class="ace-icon fa fa-search bigger-130" title="Não existe Medida de Controle"></i>
-                                                    </a>
-                                                </div>
+                                        <div class="hidden-sm hidden-xs action-buttons">
+                                            <a class="red" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento'); return false;">
+                                                <i class="ace-icon fa fa-search bigger-130" title="Não existe Medida de Controle"></i>
+                                            </a>
+                                            <a class="red2" href="#" onclick="Exposicao('@iImagens.IDAtividadeAlocada','@iImagens.idAlocacao','@iImagens.AtividadesDoEstabelecimento.IDEstabelecimento');" data-rel="tooltip" title="Cadastrar Exposição ">
+                                                <i class="ace-icon fa fa-bolt bigger-130"></i>
+
+                                            </a>
+
+                                        </div>
 
 
                                            }
