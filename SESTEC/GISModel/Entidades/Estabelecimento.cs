@@ -28,13 +28,13 @@ namespace GISModel.Entidades
         [Display(Name = "departamento")]
         public string IDDepartamento { get; set; }
 
-        [Display(Name = "empresa")]
-        public string IDEmpresa { get; set; }
+        //[Display(Name = "empresa")]
+        //public string IDEmpresa { get; set; }
 
         
         public virtual Departamento Departamento { get; set; }
                       
-        public virtual Empresa Empresa { get; set; }
+        //public virtual Empresa Empresa { get; set; }
 
 
         //public virtual ICollection<Alocacao> Alocacao { get; set; }
