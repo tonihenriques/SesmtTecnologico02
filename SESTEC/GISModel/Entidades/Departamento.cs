@@ -35,8 +35,7 @@ namespace GISModel.Entidades
         public string DepartamentoVinculado { get; set; }
 
 
-        [Display(Name = "Diretoria")]
-        [Required(ErrorMessage = "Selecione uma Diretoria")]
+        [Display(Name = "Diretoria")]        
         public string IDDiretoria { get; set; }
 
         public virtual Diretoria Diretoria { get; set; }

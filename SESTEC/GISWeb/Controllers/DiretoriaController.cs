@@ -11,6 +11,7 @@ using System.Web.Mvc;
 
 namespace GISWeb.Controllers
 {
+    
     public class DiretoriaController : Controller
     {
         #region Inject
@@ -26,11 +27,39 @@ namespace GISWeb.Controllers
         [Inject]
         public IEmpresaBusiness EmpresaBusiness { get; set; }
 
+        [Inject]
+        public IDepartamentoBusiness DepartamentoBusiness { get; set; }
+
         #endregion
         // GET: TipoDeRisco
         public ActionResult Index()
         {
             ViewBag.Diretoria = DiretoriaBusiness.Consulta.Where(d => string.IsNullOrEmpty(d.UsuarioExclusao)).Distinct().ToList();
+            ViewBag.Departamentos = DepartamentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList();
+
+            var lista = from Dir in DiretoriaBusiness.Consulta.Where(d => string.IsNullOrEmpty(d.UsuarioExclusao)).Distinct().ToList()
+                        join Dep in DepartamentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                        on Dir.IDDiretoria equals Dep.IDDiretoria                       
+                        select new Departamento()
+                        {
+                            IDDepartamento = Dep.IDDepartamento,
+                            Sigla= Dep.Sigla,
+                            Descricao = Dep.Descricao,
+
+                            Diretoria = new Diretoria()
+                            {
+                                IDDiretoria=Dir.IDDiretoria,
+                                Sigla=Dir.Sigla,
+                                Descricao = Dir.Descricao
+
+                            }
+
+
+                        };
+
+            ViewBag.lista = lista;
+
+
 
             return View();
         }

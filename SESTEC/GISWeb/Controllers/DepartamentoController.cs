@@ -35,9 +35,11 @@ namespace GISWeb.Controllers
         }
 
 
-        public ActionResult Novo()
+        public ActionResult Novo(string id)
         {
-            ViewBag.Diretoria = new SelectList(DiretoriaBusiness.Consulta.Where(p=>string.IsNullOrEmpty(p.UsuarioExclusao)).ToList(), "IDDiretoria", "Sigla");
+
+            ViewBag.Diretoria = id;
+            //ViewBag.Diretoria = new SelectList(DiretoriaBusiness.Consulta.Where(p=>string.IsNullOrEmpty(p.UsuarioExclusao)).ToList(), "IDDiretoria", "Sigla");
             ViewBag.Empresas = new SelectList(EmpresaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList(), "IDEmpresa", "NomeFantasia");
             //ViewBag.Contratos = new SelectList(ContratoBusiness.Consulta.ToList(), "IDContrato", "Numero");
             return View();
@@ -52,13 +54,13 @@ namespace GISWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Cadastrar(Departamento Departamento)
+        public ActionResult Cadastrar(Departamento Departamento, string IDDiretoria)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-
+                    Departamento.IDDiretoria = IDDiretoria;
                     DepartamentoBusiness.Inserir(Departamento);
 
                     TempData["MensagemSucesso"] = "O departamento '" + Departamento.Sigla + "' foi cadastrado com sucesso.";
@@ -187,6 +189,42 @@ namespace GISWeb.Controllers
 
 
         }
+
+
+
+        public ActionResult DepartamentoDiretoria(string IDDiretoria, string Sigla)
+        {
+            ViewBag.Sigla = Sigla;
+            ViewBag.Departamento = DepartamentoBusiness.Consulta.Where(p => p.IDDiretoria.Equals(IDDiretoria));
+
+            try
+            {
+                Departamento oIDepartamento = DepartamentoBusiness.Consulta.FirstOrDefault(p => p.IDDiretoria.Equals(IDDiretoria));
+                if (oIDepartamento == null)
+                {
+                    return Json(new { resultado = new RetornoJSON() { Alerta = "Lista não encontrada." } });
+                }
+                else
+                {
+                    return Json(new { data = RenderRazorViewToString("_Detalhes", oIDepartamento) });
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetBaseException() == null)
+                {
+                    return Json(new { resultado = new RetornoJSON() { Erro = ex.Message } });
+                }
+                else
+                {
+                    return Json(new { resultado = new RetornoJSON() { Erro = ex.GetBaseException().Message } });
+                }
+            }
+
+
+            return View();
+        }
+
 
 
 

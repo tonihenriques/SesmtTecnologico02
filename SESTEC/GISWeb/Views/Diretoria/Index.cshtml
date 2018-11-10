@@ -32,7 +32,7 @@
                             <th width="50px"></th>
                             <th>Sigla</th>
                             <th>Descrição</th>
-                            <th width="60px"></th>
+                            <th width="100px"></th>
                         </tr>
                     </thead>
 
@@ -53,12 +53,18 @@
 
 
                             <td>
-                                <div class="hidden-sm hidden-xs action-buttons"> 
+                                <div class="hidden-sm hidden-xs action-buttons">
+
+                                    <a href='@Url.Action("Novo", "Departamento", new { id = @iDiretoria.IDDiretoria })' class="green">
+                                        <i class="ace-icon fa fa-plus bigger-130" title="Criar Departamento"></i>
+                                    </a>
+                                    <a class="blue" href="#" onclick="DepartamentoDiretoria('@iDiretoria.IDDiretoria','@iDiretoria.Sigla');">
+                                        <i class="ace-icon fa fa-search bigger-110" style="font-size:24px;color:red" title="Excluir Diretoria"></i>
+                                    </a>
                                     <a class="red" href="#" onclick="DeletarDiretoria('@iDiretoria.IDDiretoria');">
-                                        <i class="ace-icon fa fa-trash-o" style="font-size:24px;color:red" title="Excluir cargo"></i>
+                                        <i class="ace-icon fa fa-trash-o" style="font-size:24px;color:red" title="Excluir Diretoria"></i>
                                     </a>
                                 </div>
-
                                 <div class="hidden-md hidden-lg">
                                     <div class="inline pos-rel">
                                         <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
@@ -66,7 +72,7 @@
                                         </button>
 
                                         <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                           
+
 
                                             <li>
                                                 <a href="#" class="tooltip-error" onclick="DeletarDiretoria('@iDiretoria.IDDiretoria');" data-rel="tooltip" title="Delete">
@@ -90,6 +96,15 @@
 
     </div>
 </div>
+
+
+
+
+
+
+
+
+
 
 @section Scripts {
     @Scripts.Render("~/bundles/jQ_dataTable")
