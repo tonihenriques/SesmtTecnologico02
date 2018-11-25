@@ -32,6 +32,13 @@ namespace GISWeb.Controllers
 
             return View();
         }
+        public ActionResult EmpresaCriacoes(string id)
+        {
+
+            ViewBag.Empresas = EmpresaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && p.IDEmpresa.Equals(id)).ToList();
+
+            return View();
+        }
 
         public ActionResult BuscarEmpresaPorID(string IDEmpresa) {
 

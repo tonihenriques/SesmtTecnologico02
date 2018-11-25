@@ -60,6 +60,10 @@
                             <td class="hidden-480">@iEmpresa.RazaoSocial</td>
                             <td>
                                 <div class="hidden-sm hidden-xs action-buttons">
+                                    <a class="blue" href='@Url.Action("EmpresaCriacoes","Empresa", new { id =iEmpresa.IDEmpresa })'; return false;">
+                                        <i class="ace-icon fa fa-search-plus bigger-130"></i>
+                                    </a>
+
                                     <a class="blue" href="#" onclick="BuscarDetalhesEmpresa('@iEmpresa.IDEmpresa'); return false;">
                                         <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                     </a>

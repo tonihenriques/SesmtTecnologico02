@@ -35,12 +35,11 @@
                                     <span class="lbl"></span>
                                 </label>
                             </th>
-                            <th>Tipo</th>
-                            <th>Código</th>
-                            <th>Nome do Estabelecimento</th>
-                            <th>Descrição</th>
-                            @*<th>Empresa</th>*@
+                            <th>Empresa</th>
                             <th>Departamento</th>
+                            <th>Nome do Estabelecimento</th>
+                            <th>Tipo</th>
+                            <th>Descrição</th>
                             <th width="70px"></th>
                         </tr>
                     </thead>
@@ -58,58 +57,58 @@
                                     <span class="lbl"></span>
                                 </label>
                             </td>
-                            <td>@iEstabelecimento.TipoDeEstabelecimento</td>
-                            <td>@iEstabelecimento.Codigo</td>
-                            <td>@iEstabelecimento.NomeCompleto</td>
-                            <td>@iEstabelecimento.Descricao</td>
-                            @*<td>@iEstabelecimento.Empresa.NomeFantasia</td>*@
+                            <td>@iEstabelecimento.Departamento.Diretoria.Empresa.NomeFantasia</td>
                             <td>@iEstabelecimento.Departamento.Sigla</td>
+                            <td>@iEstabelecimento.NomeCompleto</td>
+                            <td>@iEstabelecimento.TipoDeEstabelecimento</td>
+                            <td>@iEstabelecimento.Descricao</td>
+
 
                             <td>
                                 <div class="hidden-sm hidden-xs action-buttons">
-                                   
 
-                                        <a href='@Url.Action("Edicao", "Estabelecimento", new { id = @iEstabelecimento.IDEstabelecimento })' title="Editar"  class="green">
-                                            <i class="ace-icon fa fa-pencil bigger-130"></i>
-                                        </a>
 
-                                        <a class="red" href='@Url.Action("Novo", "EstabelecimentoAmbiente", new { id = @iEstabelecimento.IDEstabelecimento })' title="Cadastrar Ambiente">
-                                           
-                                                <i class="ace-icon fa fa-plus bigger-130"></i>
-                                            </a>
-</div>
+                                    <a href='@Url.Action("Edicao", "Estabelecimento", new { id = @iEstabelecimento.IDEstabelecimento })' title="Editar" class="green">
+                                        <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                    </a>
 
-                                    <div class="hidden-md hidden-lg">
-                                        <div class="inline pos-rel">
-                                            <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                                                <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-                                            </button>
+                                    <a class="red" href='@Url.Action("Novo", "EstabelecimentoAmbiente", new { id = @iEstabelecimento.IDEstabelecimento })' title="Cadastrar Ambiente">
 
-                                            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                                <li>
-                                                    <a href='@Url.Action("Edicao", "Estabelecimento", new { id = @iEstabelecimento.IDEstabelecimento })' title="Editar" class="green">
-                                                        <i class="ace-icon fa fa-pencil bigger-130"></i>
-                                                    </a>
-                                                </li>
+                                        <i class="ace-icon fa fa-plus bigger-130"></i>
+                                    </a>
+                                </div>
 
-                                                <li>
-                                                    <a class="red" href='@Url.Action("Novo", "EstabelecimentoAmbiente", new { id = @iEstabelecimento.IDEstabelecimento })' title="Cadastrar Ambiente">
+                                <div class="hidden-md hidden-lg">
+                                    <div class="inline pos-rel">
+                                        <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+                                            <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+                                        </button>
 
-                                                        <i class="ace-icon fa fa-plus bigger-130"></i>
-                                                    </a>
-                                                </li>
+                                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                                            <li>
+                                                <a href='@Url.Action("Edicao", "Estabelecimento", new { id = @iEstabelecimento.IDEstabelecimento })' title="Editar" class="green">
+                                                    <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                                </a>
+                                            </li>
 
-                                                @*<li>
-                                                    <a href="#" class="tooltip-error" onclick="DeletarEstabelecimento('@iEstabelecimento.IDEstabelecimento');" data-rel="tooltip" title="Delete">
-                                                        <span class="red">
-                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                        </span>
-                                                    </a>
-                                                </li>*@
-                                            </ul>
-                                        </div>
+                                            <li>
+                                                <a class="red" href='@Url.Action("Novo", "EstabelecimentoAmbiente", new { id = @iEstabelecimento.IDEstabelecimento })' title="Cadastrar Ambiente">
+
+                                                    <i class="ace-icon fa fa-plus bigger-130"></i>
+                                                </a>
+                                            </li>
+
+                                            @*<li>
+                            <a href="#" class="tooltip-error" onclick="DeletarEstabelecimento('@iEstabelecimento.IDEstabelecimento');" data-rel="tooltip" title="Delete">
+                                <span class="red">
+                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                </span>
+                            </a>
+                        </li>*@
+                                        </ul>
                                     </div>
-</td>
+                                </div>
+                            </td>
                         </tr>
 
                         }

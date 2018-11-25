@@ -71,9 +71,9 @@ namespace GISModel.Entidades
         public virtual CNAE CNAE { get; set; }
 
 
-        public virtual ICollection<Estabelecimento> Estabelecimento { get; set; }
+        //public virtual ICollection<Estabelecimento> Estabelecimento { get; set; }
 
-        public virtual ICollection<Contrato> Contrato { get; set; }
+        //public virtual ICollection<Contrato> Contrato { get; set; }
         
 
 

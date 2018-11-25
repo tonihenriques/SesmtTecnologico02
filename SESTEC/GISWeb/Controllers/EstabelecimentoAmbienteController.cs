@@ -21,6 +21,7 @@ namespace GISWeb.Controllers
         [Inject]
         public IPlanoDeAcaoBusiness PlanoDeAcaoBusiness { get; set; }
 
+        public IDepartamentoBusiness DepartamentoBusiness { get; set; }
 
         [Inject]
         public IEstabelecimentoAmbienteBusiness EstabelecimentoImagensBusiness { get; set; }
@@ -29,7 +30,15 @@ namespace GISWeb.Controllers
         public IEstabelecimentoBusiness EstabelecimentoBusiness { get; set; }
 
         [Inject]
+        public IEmpresaBusiness EmpresaBusiness { get; set; }
+
+        [Inject]
         public IAtividadesDoEstabelecimentoBusiness AtividadesDoEstabelecimentoBusiness { get; set; }
+
+
+        [Inject]
+        public IDiretoriaBusiness DiretoriaBusiness { get; set; }
+
 
         #endregion
 
@@ -133,8 +142,49 @@ namespace GISWeb.Controllers
             
             ViewBag.EstabID = id;
 
-            ViewBag.Imagens = EstabelecimentoImagensBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDEstabelecimento.Equals(id))).ToList();
-            ViewBag.Estabelecimento = EstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDEstabelecimento.Equals(id))).ToList();
+            ViewBag.Imagens = EstabelecimentoImagensBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList();
+            //ViewBag.Estabelecimento = EstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDEstabelecimento.Equals(id))).ToList();
+
+           List<Estabelecimento>  EstabAmbiente = (from Estab in EstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                join Dep in DepartamentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                on Estab.IDDepartamento equals Dep.IDDepartamento
+                                //join Dir in DiretoriaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                //on Dep.IDDiretoria equals Dir.IDDiretoria
+                                //join Emp in EmpresaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                //on Dir.IDEmpresa equals Emp.IDEmpresa
+                                where Estab.IDEstabelecimento.Equals(id)
+                                select new Estabelecimento()
+                                {
+                                    IDEstabelecimento = Estab.IDEstabelecimento,
+                                    //TipoDeEstabelecimento = Estab.TipoDeEstabelecimento,
+                                    //Descricao = Estab.Descricao,
+                                    //NomeCompleto = Estab.NomeCompleto,
+                                    //IDDepartamento = Estab.IDDepartamento,
+
+                                    //Departamento = new Departamento()
+                                    //{
+                                    //    IDDepartamento = Dep.IDDepartamento,
+                                    //    Sigla = Dep.Sigla,
+                                    //    Descricao = Dep.Descricao,
+
+
+                                    //    Diretoria = new Diretoria()
+                                    //    {
+                                    //        IDDiretoria = Dir.IDDiretoria,
+
+                                    //        Empresa = new Empresa()
+                                    //        {
+                                    //            IDEmpresa = Emp.IDEmpresa,
+
+                                    //        }
+                                    //    }
+                                    //}
+
+                                }
+                                ).ToList();
+
+            ViewBag.Estabelecimento = EstabAmbiente;
+
             //ViewBag.RegistroID = new SelectList(EstabelecimentoImagensBusiness.Consulta, "RegistroID", "Diretoria");
 
             return View();

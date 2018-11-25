@@ -499,6 +499,7 @@
     <Content Include="Views\PlanoDeAcao\_Detalhes.cshtml" />
     <Content Include="Views\Exposicao\Novo.cshtml" />
     <Content Include="Views\Exposicao\_Detalhes.cshtml" />
+    <Content Include="Views\Empresa\EmpresaCriacoes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

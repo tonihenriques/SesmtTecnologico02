@@ -1,5 +1,4 @@
 ﻿@model GISModel.Entidades.EstabelecimentoAmbiente
-
 @{
     ViewBag.Title = "Cadastro de Imagens de Estabelecimentos";
 }
@@ -30,15 +29,15 @@
 
                 <td>
                     <b>
-                <td>
-                    <img src="/Images/Empresas/@iEstabelecimento.Empresa.CNPJ.Replace("/", "").Replace("-", "").Replace(".", "")/@iEstabelecimento.Empresa.URL_LogoMarca" alt="Estabelecimento" width="90px" title="@iEstabelecimento.Empresa.URL_LogoMarca" />
+                @*<td>
+                    <img src="/Images/Empresas/@iEstabelecimento.Departamento.Empresa.CNPJ.Replace("/", "").Replace("-", "").Replace(".", "")/@iEstabelecimento.Departamento.Empresa.URL_LogoMarca" alt="Estabelecimento" width="90px" title="@iEstabelecimento.Departamento.Empresa.URL_LogoMarca" />
 
-                </td>
+                </td>*@
                 <br />
 
-                <i class="material-icons" style="font-size:16px;color:red">Empresa:</i>&nbsp;@iEstabelecimento.Empresa.NomeFantasia
+                @*<i class="material-icons" style="font-size:16px;color:red">Empresa:</i>&nbsp;@iEstabelecimento.Empresa.NomeFantasia
                 
-                <br />
+                <br />*@
                 <i class="material-icons" style="font-size:16px;color:red">Orgão:</i>&nbsp;@iEstabelecimento.Departamento.Sigla
                 <br />
 
