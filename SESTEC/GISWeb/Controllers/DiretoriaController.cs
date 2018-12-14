@@ -65,13 +65,37 @@ namespace GISWeb.Controllers
         }
 
 
-        public ActionResult Novo()
+        public ActionResult Novo(string IDEmpresa, string nome)
         {
 
             ViewBag.Empresa = new SelectList(EmpresaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList(), "IDEmpresa", "NomeFantasia");
+            ViewBag.Empresas = IDEmpresa;
+            ViewBag.NomeEmpresa = nome;
 
+            try
+            {
+                // Atividade oAtividade = AtividadeBusiness.Consulta.FirstOrDefault(p => string.IsNullOrEmpty(p.UsuarioExclusao) && p.idFuncao.Equals(id));
 
-            return View();
+                if (ViewBag.Empresas == null)
+                {
+                    return Json(new { resultado = new RetornoJSON() { Alerta = "Parametro id não passado." } });
+                }
+                else
+                {
+                    return Json(new { data = RenderRazorViewToString("_Novo") });
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetBaseException() == null)
+                {
+                    return Json(new { resultado = new RetornoJSON() { Erro = ex.Message } });
+                }
+                else
+                {
+                    return Json(new { resultado = new RetornoJSON() { Erro = ex.GetBaseException().Message } });
+                }
+            }
         }
 
         [HttpPost]
@@ -87,7 +111,7 @@ namespace GISWeb.Controllers
 
                     TempData["MensagemSucesso"] = "A Diretoria'" + oDiretoria.Sigla + "' foi cadastrada com sucesso!";
 
-                    return Json(new { resultado = new RetornoJSON() { URL = Url.Action("Index", "Diretoria", new { id = oDiretoria.IDDiretoria })}});
+                    return Json(new { resultado = new RetornoJSON() { URL = Url.Action("EmpresaCriacoes","Empresa", new { id = oDiretoria.IDEmpresa })}});
 
                 }
                 catch (Exception ex)
@@ -190,7 +214,20 @@ namespace GISWeb.Controllers
 
         }
 
-
+        private string RenderRazorViewToString(string viewName, object model = null)
+        {
+            ViewData.Model = model;
+            using (var sw = new System.IO.StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext,
+                                                                         viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View,
+                                             ViewData, TempData, sw);
+                viewResult.View.Render(viewContext, sw);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+                return sw.GetStringBuilder().ToString();
+            }
+        }
 
 
 

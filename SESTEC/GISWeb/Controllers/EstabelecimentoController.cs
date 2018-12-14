@@ -39,11 +39,43 @@ namespace GISWeb.Controllers
             return View();
         }
 
-        public ActionResult Novo()
+        public ActionResult Novo(string IDEmpresa, string nome)
         {
-            ViewBag.Empresas = new SelectList(EmpresaBusiness.Consulta.ToList(), "IDEmpresa", "NomeFantasia");
+            ViewBag.Empresas = IDEmpresa;
+            ViewBag.NomeEmpresa = nome;
             ViewBag.Departamento = new SelectList(DepartamentoBusiness.Consulta.Where(p=>string.IsNullOrEmpty(p.UsuarioExclusao)).ToList(), "IDDepartamento", "Sigla");
-            return View();
+            
+
+            try
+            {
+                // Atividade oAtividade = AtividadeBusiness.Consulta.FirstOrDefault(p => string.IsNullOrEmpty(p.UsuarioExclusao) && p.idFuncao.Equals(id));
+
+                if (ViewBag.Empresas == null)
+                {
+                    return Json(new { resultado = new RetornoJSON() { Alerta = "Parametro id não passado." } });
+                }
+                else
+                {
+                    return Json(new { data = RenderRazorViewToString("_Novo") });
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetBaseException() == null)
+                {
+                    return Json(new { resultado = new RetornoJSON() { Erro = ex.Message } });
+                }
+                else
+                {
+                    return Json(new { resultado = new RetornoJSON() { Erro = ex.GetBaseException().Message } });
+                }
+            }
+
+
+
+
+
+
         }
 
 
@@ -56,7 +88,7 @@ namespace GISWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Cadastrar(Estabelecimento oEstabelecimento)
+        public ActionResult Cadastrar(Estabelecimento oEstabelecimento, string EmpresaID)
         {
             
             if (ModelState.IsValid)
@@ -69,7 +101,7 @@ namespace GISWeb.Controllers
 
                     TempData["MensagemSucesso"] = "O Estbelecimento '" + oEstabelecimento.NomeCompleto + "' foi cadastrado com sucesso.";
 
-                    return Json(new { resultado = new RetornoJSON() { URL = Url.Action("Index", "Estabelecimento") } });
+                    return Json(new { resultado = new RetornoJSON() { URL = Url.Action("EmpresaCriacoes", "Empresa", new { id = EmpresaID }) } });
                 }
                 catch (Exception ex)
                 {

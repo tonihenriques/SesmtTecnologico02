@@ -26,13 +26,13 @@ namespace GISModel.Entidades
 
         public Situacao Status { get; set; }
 
-        //public virtual Empresa Empresa { get; set; }
+        public virtual Empresa Empresa { get; set; }
 
         [Display(Name = "Empresa")]        
         public string IDEmpresa { get; set; }
 
-        [Display(Name = "Departamento Vinculado")]
-        public string DepartamentoVinculado { get; set; }
+        //[Display(Name = "Departamento Vinculado")]
+        //public string DepartamentoVinculado { get; set; }
 
 
         [Display(Name = "Diretoria")]        

@@ -33,7 +33,7 @@
                             <th>CNPJ</th>
                             <th>Nome Fatasia</th>
                             <th class="hidden-480">Razão Social</th>
-                            <th width="89px"></th>
+                            <th width="120px"></th>
                         </tr>
                     </thead>
 
@@ -60,20 +60,22 @@
                             <td class="hidden-480">@iEmpresa.RazaoSocial</td>
                             <td>
                                 <div class="hidden-sm hidden-xs action-buttons">
-                                    <a class="blue" href='@Url.Action("EmpresaCriacoes","Empresa", new { id =iEmpresa.IDEmpresa })'; return false;">
-                                        <i class="ace-icon fa fa-search-plus bigger-130"></i>
+
+
+                                    <a class="red" href='@Url.Action("EmpresaCriacoes","Empresa", new { id =iEmpresa.IDEmpresa })'; return false;">
+                                        <i class="fa fa-tag bigger-130" title="Criações"></i>
                                     </a>
 
                                     <a class="blue" href="#" onclick="BuscarDetalhesEmpresa('@iEmpresa.IDEmpresa'); return false;">
-                                        <i class="ace-icon fa fa-search-plus bigger-130"></i>
+                                        <i class="ace-icon fa fa-search-plus bigger-130" title="Detalhes"></i>
                                     </a>
 
                                     <a href='@Url.Action("Edicao", "Empresa", new { id = @iEmpresa.IDEmpresa })' class="green">
-                                        <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                        <i class="ace-icon fa fa-pencil bigger-130" title="Editar"></i>
                                     </a>
 
                                     <a class="red" href="#" onclick="DeletarEmpresa('@iEmpresa.IDEmpresa', '@iEmpresa.NomeFantasia');">
-                                        <i class="ace-icon fa fa-trash-o bigger-130"></i>
+                                        <i class="ace-icon fa fa-trash-o bigger-130" title="Excluir"></i>
                                     </a>
                                 </div>
 

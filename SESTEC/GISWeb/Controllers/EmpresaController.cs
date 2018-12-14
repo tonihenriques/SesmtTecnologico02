@@ -23,6 +23,15 @@ namespace GISWeb.Controllers
         [Inject]
             public IEmpresaBusiness EmpresaBusiness { get; set; }
 
+        [Inject]
+        public IDiretoriaBusiness DiretoriaBusiness { get; set; }
+
+        [Inject]
+        public IDepartamentoBusiness DepartamentoBusiness { get; set; }
+
+        [Inject]
+        public IEstabelecimentoBusiness EstabelecimentoBusiness { get; set; }
+
         #endregion
 
         public ActionResult Index()
@@ -36,6 +45,40 @@ namespace GISWeb.Controllers
         {
 
             ViewBag.Empresas = EmpresaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && p.IDEmpresa.Equals(id)).ToList();
+
+            var Lista = from Dep in DepartamentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                        join Est in EstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                        on Dep.IDDepartamento equals Est.IDDepartamento
+                        join Dir in DiretoriaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                        on Dep.IDDiretoria equals Dir.IDDiretoria
+                        where Dir.IDEmpresa.Equals(id)
+                        select new Estabelecimento
+                        {
+                            IDEstabelecimento = Est.IDEstabelecimento,
+                            NomeCompleto = Est.NomeCompleto,
+
+                            Departamento = new Departamento
+                            {
+                                IDDepartamento = Dep.IDDepartamento,
+                                Sigla = Dep.Sigla,                            
+                            
+                            Diretoria = new Diretoria
+                            {
+                                IDDiretoria = Dir.IDDiretoria,
+                                Sigla = Dir.Sigla, 
+                            }
+
+
+                            },
+
+                        };
+
+            List<Estabelecimento> lista01 = Lista.ToList();
+
+            ViewBag.Lista = lista01;
+
+
+
 
             return View();
         }

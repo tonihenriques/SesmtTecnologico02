@@ -38,14 +38,14 @@ function BuscarDetalhesEmpresa(IDEmpresa) {
 
 }
 
-function CriarEstabelecimento(IDEmpresa) {
+function CriarEstabelecimento(IDEmpresa,nome) {
 
     $(".LoadingLayout").show();
 
     $.ajax({
         method: "POST",
         url: "/Estabelecimento/Novo",
-        data: { idEmpresa: IDEmpresa },
+        data: { idEmpresa: IDEmpresa, Nome: nome },
         error: function (erro) {
             $(".LoadingLayout").hide();
             ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')
@@ -56,7 +56,7 @@ function CriarEstabelecimento(IDEmpresa) {
             if (content.data != null) {
                 bootbox.dialog({
                     message: content.data,
-                    title: "<span class='bigger-110'>Detalhes da Empresa</span>",
+                    title: "<span class='bigger-110'>Cadastrar Estabelecimento</span>",
                     backdrop: true,
                     locale: "br",
                     buttons: {},
@@ -71,6 +71,78 @@ function CriarEstabelecimento(IDEmpresa) {
     });
 
 }
+
+function CriarDepartamento(IDEmpresa, nome) {
+
+    $(".LoadingLayout").show();
+
+    $.ajax({
+        method: "POST",
+        url: "/Departamento/Novo",
+        data: { idEmpresa: IDEmpresa, Nome: nome },
+        error: function (erro) {
+            $(".LoadingLayout").hide();
+            ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')
+        },
+        success: function (content) {
+            $(".LoadingLayout").hide();
+
+            if (content.data != null) {
+                bootbox.dialog({
+                    message: content.data,
+                    title: "<span class='bigger-110'>Cadastrar Departamento</span>",
+                    backdrop: true,
+                    locale: "br",
+                    buttons: {},
+                    onEscape: true
+                });
+            }
+            else {
+                TratarResultadoJSON(content.resultado);
+            }
+
+        }
+    });
+
+}
+
+function CriarDiretoria(IDEmpresa, nome) {
+
+    $(".LoadingLayout").show();
+
+    $.ajax({
+        method: "POST",
+        url: "/Diretoria/Novo",
+        data: { idEmpresa: IDEmpresa, Nome: nome },
+        error: function (erro) {
+            $(".LoadingLayout").hide();
+            ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')
+        },
+        success: function (content) {
+            $(".LoadingLayout").hide();
+
+            if (content.data != null) {
+                bootbox.dialog({
+                    message: content.data,
+                    title: "<span class='bigger-110'>Cadastrar Diretoria</span>",
+                    backdrop: true,
+                    locale: "br",
+                    buttons: {},
+                    onEscape: true
+                });
+            }
+            else {
+                TratarResultadoJSON(content.resultado);
+            }
+
+        }
+    });
+
+}
+
+
+
+
 
 function DeletarEmpresa(IDEmpresa, Nome) {
     

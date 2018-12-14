@@ -21,6 +21,7 @@ namespace GISWeb.Controllers
         [Inject]
         public IPlanoDeAcaoBusiness PlanoDeAcaoBusiness { get; set; }
 
+        [Inject]
         public IDepartamentoBusiness DepartamentoBusiness { get; set; }
 
         [Inject]
@@ -148,39 +149,39 @@ namespace GISWeb.Controllers
            List<Estabelecimento>  EstabAmbiente = (from Estab in EstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
                                 join Dep in DepartamentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
                                 on Estab.IDDepartamento equals Dep.IDDepartamento
-                                //join Dir in DiretoriaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-                                //on Dep.IDDiretoria equals Dir.IDDiretoria
-                                //join Emp in EmpresaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-                                //on Dir.IDEmpresa equals Emp.IDEmpresa
+                                join Dir in DiretoriaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                on Dep.IDDiretoria equals Dir.IDDiretoria
+                                join Emp in EmpresaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                on Dir.IDEmpresa equals Emp.IDEmpresa
                                 where Estab.IDEstabelecimento.Equals(id)
                                 select new Estabelecimento()
                                 {
                                     IDEstabelecimento = Estab.IDEstabelecimento,
-                                    //TipoDeEstabelecimento = Estab.TipoDeEstabelecimento,
-                                    //Descricao = Estab.Descricao,
-                                    //NomeCompleto = Estab.NomeCompleto,
-                                    //IDDepartamento = Estab.IDDepartamento,
+                                    TipoDeEstabelecimento = Estab.TipoDeEstabelecimento,
+                                    Descricao = Estab.Descricao,
+                                    NomeCompleto = Estab.NomeCompleto,
+                                    IDDepartamento = Estab.IDDepartamento,
 
-                                    //Departamento = new Departamento()
-                                    //{
-                                    //    IDDepartamento = Dep.IDDepartamento,
-                                    //    Sigla = Dep.Sigla,
-                                    //    Descricao = Dep.Descricao,
+                                    Departamento = new Departamento()
+                                    {
+                                        IDDepartamento = Dep.IDDepartamento,
+                                        Sigla = Dep.Sigla,
+                                        Descricao = Dep.Descricao,
 
 
-                                    //    Diretoria = new Diretoria()
-                                    //    {
-                                    //        IDDiretoria = Dir.IDDiretoria,
+                                        Diretoria = new Diretoria()
+                                        {
+                                            IDDiretoria = Dir.IDDiretoria,
 
-                                    //        Empresa = new Empresa()
-                                    //        {
-                                    //            IDEmpresa = Emp.IDEmpresa,
+                                            Empresa = new Empresa()
+                                            {
+                                                IDEmpresa = Emp.IDEmpresa,
 
-                                    //        }
-                                    //    }
-                                    //}
+                                            }
+                                        }
+                                    }
 
-                                }
+                                  }
                                 ).ToList();
 
             ViewBag.Estabelecimento = EstabAmbiente;

@@ -24,6 +24,7 @@ namespace GISModel.Entidades
         [Display(Name = "Nome Completo")]
         public string NomeCompleto { get; set; }
 
+       
 
         [Display(Name = "departamento")]
         public string IDDepartamento { get; set; }

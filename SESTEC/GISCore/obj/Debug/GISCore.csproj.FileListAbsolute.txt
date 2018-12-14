@@ -297,6 +297,5 @@ D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GI
 D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.csproj.CoreCompileInputs.cache
 D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.dll
 D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.pdb
-D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.Migrations.v01.resources
+D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.Migrations.v_01.resources
 D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.csproj.GenerateResource.Cache
-D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.Migrations.v02.resources

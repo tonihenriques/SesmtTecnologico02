@@ -35,17 +35,43 @@ namespace GISWeb.Controllers
         }
 
 
-        public ActionResult Novo(string id)
+        public ActionResult Novo(string IDEmpresa, string nome)
         {
+            ViewBag.Diretoria = new SelectList(DiretoriaBusiness.Consulta.Where(p=>string.IsNullOrEmpty(p.UsuarioExclusao)).ToList(), "IDDiretoria", "Sigla");
+            ViewBag.Empresas = IDEmpresa;
+            ViewBag.NomeEmpresa = nome;
+            
+            //ViewBag.Empresas = new SelectList(EmpresaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList(), "IDEmpresa", "NomeFantasia");
+            
 
-            ViewBag.Diretoria = id;
-            //ViewBag.Diretoria = new SelectList(DiretoriaBusiness.Consulta.Where(p=>string.IsNullOrEmpty(p.UsuarioExclusao)).ToList(), "IDDiretoria", "Sigla");
-            ViewBag.Empresas = new SelectList(EmpresaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList(), "IDEmpresa", "NomeFantasia");
-            //ViewBag.Contratos = new SelectList(ContratoBusiness.Consulta.ToList(), "IDContrato", "Numero");
-            return View();
+            try
+            {
+                // Atividade oAtividade = AtividadeBusiness.Consulta.FirstOrDefault(p => string.IsNullOrEmpty(p.UsuarioExclusao) && p.idFuncao.Equals(id));
+
+                if (ViewBag.Empresas == null)
+                {
+                    return Json(new { resultado = new RetornoJSON() { Alerta = "Parametro id não passado." } });
+                }
+                else
+                {
+                    return Json(new { data = RenderRazorViewToString("_Novo") });
+                }
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetBaseException() == null)
+                {
+                    return Json(new { resultado = new RetornoJSON() { Erro = ex.Message } });
+                }
+                else
+                {
+                    return Json(new { resultado = new RetornoJSON() { Erro = ex.GetBaseException().Message } });
+                }
+            }
+
         }
 
-       
+
         public ActionResult ListarDepartamentosPorEmpresa(string idEmpresa) {
 
             return Json(new { resultado = DepartamentoBusiness.Consulta.Where(p => p.IDEmpresa.Equals(idEmpresa)).ToList().OrderBy(p=>p.Sigla) });
@@ -65,7 +91,7 @@ namespace GISWeb.Controllers
 
                     TempData["MensagemSucesso"] = "O departamento '" + Departamento.Sigla + "' foi cadastrado com sucesso.";
 
-                    return Json(new { resultado = new RetornoJSON() { URL = Url.Action("Index", "Departamento") } });
+                    return Json(new { resultado = new RetornoJSON() { URL = Url.Action("EmpresaCriacoes", "Empresa", new { id = Departamento.IDEmpresa }) } });
                 }
                 catch (Exception ex)
                 {
@@ -222,7 +248,7 @@ namespace GISWeb.Controllers
             }
 
 
-            return View();
+            //return View();
         }
 
 
