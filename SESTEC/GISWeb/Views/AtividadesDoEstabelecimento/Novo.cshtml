@@ -50,7 +50,7 @@
                     <div class="col-xs-12 col-sm-12">
                         @Html.EditorFor(d => d.NomeDaImagem, new { htmlAttributes = new { @class = "col-xs-12 col-sm-12", @id = "" } })
                         @Html.ValidationMessageFor(d => d.NomeDaImagem, string.Empty, new { @style = "font-size: 10px; color: #a94442;" })
-                        <input type="text" name="RegistroID" id="RegistroID" value=@ViewBag.EstabID hidden />
+                        <input type="text" name="RegistroID" id="RegistroID" value=@ViewBag.EstabID hidden  />
                         <input type="text" name="EstabID" id="EstabID" value=@ViewBag.EstabelecimentoID hidden />
 
 
@@ -62,7 +62,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12 col-sm-8">
+            <div class="col-xs-12 col-sm-12">
                 <div class="form-group">
                     @Html.LabelFor(d => d.DescricaoDestaAtividade, new { @class = "form-field-select-3 col-xs-12 col-sm-6 no-padding-right" })
                     <div class="col-xs-12 col-sm-12">
@@ -71,22 +71,22 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-4">
+            @*<div class="col-xs-12 col-sm-4">
                 <div class="form-group">
                     @Html.Label("Perigo Existente", new { @class = "form-field-select-3 col-xs-12 col-sm-6 no-padding-right" })
                     <div class="col-xs-12 col-sm-12">
-                        @Html.DropDownListFor(d => d.IDTipoDeRisco, (SelectList)ViewBag.TipoDeRisco, "Selecione um Risco...", new { @class = "chosen-select form-control tag-input-style", @id = "ddlEmpresa", @autocomplete = "on" })
-                        @*@Html.DropDownListFor(d => d.IDTipoDeRisco, new SelectList(ViewBag.TipoDeRisco, "IDTipoDeRisco", "DescricaoDoRisco"), new { htmlAttributes = new { @class = "col-xs-12 col-sm-12", @id = "" } })*@
+                        @Html.DropDownListFor(d => d.IDTipoDeRisco, (SelectList)ViewBag.PerigoPotencial, "Selecione um Risco...", new { @class = "chosen-select form-control tag-input-style", @id = "ddlEmpresa", @autocomplete = "on" })
+                       
                         @Html.ValidationMessageFor(d => d.IDTipoDeRisco, string.Empty, new { @style = "font-size: 10px; color: #a94442;" })
 
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
 
 
         <div class="row">
-            <div class="col-xs-12 col-sm-4">
+            @*<div class="col-xs-12 col-sm-4">
                 <div class="form-group">
                     @Html.LabelFor(d => d.EClasseDoRisco, new { @class = "form-field-select-3 col-xs-12 col-sm-6 no-padding-right" })
                     <div class="col-xs-12 col-sm-12">
@@ -95,9 +95,9 @@
 
                     </div>
                 </div>
-            </div>
+            </div>*@
 
-            <div class="col-xs-12 col-sm-4">
+            @*<div class="col-xs-12 col-sm-4">
                 <div class="form-group">
                     @Html.LabelFor(d => d.Tragetoria, new { @class = "form-field-select-3 col-xs-12 col-sm-6 no-padding-right" })
                     <div class="col-xs-12 col-sm-12">
@@ -105,8 +105,8 @@
                         @Html.ValidationMessageFor(d => d.Tragetoria, string.Empty, new { @style = "font-size: 10px; color: #a94442;" })
                     </div>
                 </div>
-            </div>
-            <div class="col-xs-12 col-sm-4">
+            </div>*@
+            @*<div class="col-xs-12 col-sm-4">
                 <div class="form-group">
                     @Html.LabelFor(d => d.FonteGeradora, new { @class = "form-field-select-3 col-xs-12 col-sm-6 no-padding-right" })
                     <div class="col-xs-12 col-sm-12">
@@ -114,7 +114,7 @@
                         @Html.ValidationMessageFor(d => d.FonteGeradora, string.Empty, new { @style = "font-size: 10px; color: #a94442;" })
                     </div>
                 </div>
-            </div>
+            </div>*@
         </div>
 
 
@@ -208,7 +208,7 @@
                                 <th width="300px">Nome da Imagem</th>
                                 @*<th>Tipo de Risco do Ambiente</th>*@
                                 <th>Descrição do Risco do Ambiente</th>
-                                <th width="100px">Controles</th>
+                                <th width="120px">Riscos e Controles</th>
                             </tr>
 
                         </thead>
@@ -226,10 +226,16 @@
                                     <td>@iImagens.DescricaoDestaAtividade</td>
 
                                     <td>
-                                        @if (ViewBag.total <= 0)
-                                         {
+                                        @*@if (ViewBag.total <= 0)
+                                         {*@
 
                                         <div class="hidden-sm hidden-xs action-buttons center">
+
+                                            <a href='@Url.Action("Novo", "TipoDeRisco", new { id = @iImagens.IDAtividadesDoEstabelecimento, Nome = iImagens.Estabelecimento.NomeCompleto, Ativida=iImagens.DescricaoDestaAtividade })' class="tooltip-success" data-rel="tooltip" title="Cadastrar Riscos">
+                                                <span class= "orange2">
+                                                    <i class="ace-icon fa fa-bolt bigger-180" aria-hidden="true" ></i>
+                                                </span>
+                                            </a>
 
                                             <a href='@Url.Action("Novo", "MedidasDeControle", new { id = @iImagens.IDAtividadesDoEstabelecimento, nome = iImagens.NomeDaImagem })' class="tooltip-success" data-rel="tooltip" title="Cadastrar Controles deste Ambiente">
                                                 <span class="green">
@@ -239,17 +245,18 @@
                                             <a class="red" href="#" onclick="CriarPlanoDeAção('@iImagens.IDAtividadesDoEstabelecimento'); return false;">
                                                 <i class="ace-icon fa fa-tags bigger-150" aria-hidden="true" title="Criar Plano de Ação"></i>
                                             </a>
+
                                         </div>
-                                            }
+                                            @*}
                                             else
-                                            {
+                                            {*@
                                         <div class="hidden-sm hidden-xs action-buttons center">
                                             <a class="red" href="#" onclick="CriarPlanoDeAção('@iImagens.IDAtividadesDoEstabelecimento'); return false;">
                                                 <i class="ace-icon fa fa-tags bigger-150" aria-hidden="true" title="Criar Plano de Ação"></i>
                                             </a>
                                         </div>
                                             
-                                          }
+                                          @*}*@
 
                                         
                                     </td>

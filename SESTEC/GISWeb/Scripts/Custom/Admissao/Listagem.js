@@ -34,14 +34,14 @@ function BuscarDetalhesEstabelecimentoImagens(IDEstabelecimentoImagens) {
 
 }
 
-function BuscarDetalhesDeMedidasDeControleEstabelecimento(IDAtividadesDoEstabelecimento) {
+function BuscarDetalhesDeMedidasDeControleEstabelecimento(id) {
 
     $(".LoadingLayout").show();
 
     $.ajax({
         method: "POST",
         url: "/AtividadesDoEstabelecimento/BuscarDetalhesDeMedidasDeControle",
-        data: { IDAtividadesDoEstabelecimento: IDAtividadesDoEstabelecimento },
+        data: { id: id },
         error: function (erro) {
             $(".LoadingLayout").hide();
             ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')
@@ -229,14 +229,14 @@ function AlocarEmAmbiente(idEstabelecimento, idAlocacao) {
 
 
 
-function EstabelecimentoAmbienteAlocado(idEstabelecimento, idAlocacao) {
+function EstabelecimentoAmbienteAlocado(idEstabelecimento, idAlocacao, idAtividadeAlocada, idAtividadesDoEstabelecimento) {
 
     $(".LoadingLayout").show();
 
     $.ajax({
         method: "POST",
         url: "/AtividadesDoEstabelecimento/EstabelecimentoAmbienteAlocado",
-        data: { idEstabelecimento: idEstabelecimento, idAlocacao: idAlocacao },
+        data: { idEstabelecimento: idEstabelecimento, idAlocacao: idAlocacao, idAtividadeAlocada: idAtividadeAlocada, idAtividadesDoEstabelecimento: idAtividadesDoEstabelecimento  },
         error: function (erro) {
             $(".LoadingLayout").hide();
             ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')
@@ -261,7 +261,49 @@ function EstabelecimentoAmbienteAlocado(idEstabelecimento, idAlocacao) {
                 TratarResultadoJSON(content.resultado);
             }
 
-            AplicajQdataTable("RiscosRelacionadoAmbiente", [{ "bSortable": false },null, null, null, null], false, 25);
+            AplicajQdataTable("RiscosRelacionadoAmbiente", [{ "bSortable": false },null, null], false, 25);
+
+
+        }
+    });
+
+};
+
+
+
+function Ambiente(idEstabelecimento) {
+
+    $(".LoadingLayout").show();
+
+    $.ajax({
+        method: "POST",
+        url: "/AtividadesDoEstabelecimento/Ambiente",
+        data: { idEstabelecimento: idEstabelecimento },
+        error: function (erro) {
+            $(".LoadingLayout").hide();
+            ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')
+        },
+        success: function (content) {
+            $(".LoadingLayout").hide();
+
+            if (content.data != null) {
+                bootbox.dialog({
+                    message: content.data,
+                    title: "<span class='bigger-110'>Atividades deste Empregado</span>",
+                    backdrop: true,
+                    locale: "br",
+                    buttons: {},
+                    onEscape: true
+                });
+            }
+            else {
+
+
+
+                TratarResultadoJSON(content.resultado);
+            }
+
+            AplicajQdataTable("RiscosRelacionadoAmbiente", [{ "bSortable": false }, null, null, null, null], false, 25);
 
 
         }

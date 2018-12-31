@@ -17,8 +17,7 @@
 </div>
 
 
-<div class="row">
-    <div class="col-xs-12">
+
 
 
         @if (ViewBag.Imagens != null)
@@ -27,56 +26,33 @@
                 <table id="dynamic-table" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th width="100px"></th>
-                            <th>Medida Existente </th>
-                            <th>Classe da Medida </th>
-                            <th width="50px">Controle</th>
+                            <th width="80px"></th>
+                            <th>Classe</th>
+                            <th>Medida existente</th>
+                            <th>Controle</th>
                         </tr>
 
                     </thead>
 
                     <tbody>
 
-                        @foreach (MedidasDeControleExistentes iImagens in ViewBag.Imagens)
+                        @foreach (var iRisco in ViewBag.Imagens)
                         {
-                        <tr id="linha-@iImagens.IDMedidasDeControle">
+
+
+                        <tr id="linha-@iRisco.IDTipoDeRisco">
                             <td>
-                               
-                                <img src="~/Images/MedidasDeControle/@iImagens.IDMedidasDeControle/@iImagens.Imagem" alt="Medida de Controle" width="70px" height="70px" title="@iImagens.NomeDaImagem"/>
+
+                                <img src="~/Images/MedidasDeControle/@iRisco.IDMedidasDeControle/@iRisco.Imagem" alt="Medida de Controle" width="70px" height="70px" title="@iRisco.NomeDaImagem" />
 
                             </td>
-                            <td>@iImagens.MedidasExistentes</td>
-                            <td>@iImagens.EClassificacaoDaMedida</td>
-                            <td>@iImagens.EControle</td>
+                            <td>@iRisco.EClassificacaoDaMedida</td>
+                            <td>@iRisco.MedidasExistentes</td>
+                            <td>@iRisco.EControle</td>
 
-                            @*<td>
-                                <div class="hidden-sm hidden-xs action-buttons">
-                                    <div class="hidden-sm hidden-xs action-buttons">
-                                        <a class="blue" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.IDAtividadesDoEstabelecimento'); return false;">
-                                            <i class="ace-icon fa fa-search-plus bigger-130"></i>
-                                        </a>
-                                    </div>
-                                </div>
 
-                                <div class="hidden-md hidden-lg">
-                                    <div class="inline pos-rel">
-                                        <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                                            <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-                                        </button>
 
-                                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                            <li>
-                                                <a href="#" class="tooltip-info" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.IDAtividadesDoEstabelecimento'); return false;" data-rel="tooltip" title="View">
-                                                    <span class="blue">
-                                                        <i class="ace-icon fa fa-search-plus bigger-120"></i>
-                                                    </span>
-                                                </a>
-                                            </li>
 
-                                        </ul>
-                                    </div>
-                                </div>
-                            </td>*@
                         </tr>
 
                         }
@@ -84,13 +60,7 @@
                     </tbody>
                 </table>
             </div>
-
-
         }
-
-    </div>
-</div>
-
 
 @*@section Scripts {
         @Scripts.Render("~/bundles/jQ_dataTable")

@@ -22,6 +22,9 @@ namespace GISWeb.Controllers
         public IAdmissaoBusiness AdmissaoBusiness { get; set; }
 
         [Inject]
+        public IAtividadesDoEstabelecimentoBusiness AtividadesDoEstabelecimentoBusiness { get; set; }
+
+        [Inject]
         public IDepartamentoBusiness DepartamentoBusiness { get; set; }
 
         [Inject]
@@ -40,6 +43,9 @@ namespace GISWeb.Controllers
 
         [Inject]
         public IAlocacaoBusiness AlocacaoBusiness { get; set; }
+
+        [Inject]
+        public IAtividadeAlocadaBusiness AtividadeAlocadaBusiness { get; set; }
 
         //[Inject]
         //public IAtividadeBusiness AtividadeDeRiscoBusiness { get; set; }
@@ -86,6 +92,36 @@ namespace GISWeb.Controllers
 
 
             Admissao oAdmissao = AdmissaoBusiness.Consulta.FirstOrDefault(p => p.IDEmpregado.Equals(id));
+
+
+            List<AtividadeAlocada> ListaAtividades = (from ATL in AtividadeAlocadaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                                      join ATV in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                                      on ATL.idAtividadesDoEstabelecimento equals ATV.IDAtividadesDoEstabelecimento
+                                                        join Est in EstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                                        on ATV.IDEstabelecimento equals Est.IDEstabelecimento
+                                                        join ALOC in AlocacaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                                        on Est.IDEstabelecimento equals ALOC.idEstabelecimento
+                                                        where ALOC.Admissao.IDEmpregado.Equals(id)
+                                                        select new AtividadeAlocada()
+                                                        {
+                                                            idAlocacao = ATL.idAlocacao,
+                                                            idAtividadesDoEstabelecimento = ATL.idAtividadesDoEstabelecimento,
+                                                            IDAtividadeAlocada = ATL.IDAtividadeAlocada,
+                                                            AtividadesDoEstabelecimento = new AtividadesDoEstabelecimento()
+                                                            {
+                                                                DescricaoDestaAtividade = ATV.DescricaoDestaAtividade,
+
+                                                                Estabelecimento = new Estabelecimento()
+                                                                {
+                                                                    IDEstabelecimento = Est.IDEstabelecimento,
+                                                                    Descricao = Est.Descricao
+                                                                }
+                                                            }
+                                                                  
+                                                                     
+                                                        }
+                                                        ).ToList();
+            ViewBag.ListaAtividade = ListaAtividades;
             
 
             //ViewBag.Alocaçao = AlocacaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.Admissao.IDEmpregado.Equals(id)) && (p.Ativado == "Ativado")).ToList();

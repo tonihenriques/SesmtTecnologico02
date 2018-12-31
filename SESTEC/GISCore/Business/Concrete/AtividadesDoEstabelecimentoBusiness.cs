@@ -73,12 +73,12 @@ namespace GISCore.Business.Concrete
                 //tempRiscosDoEstabelecimento.IDAlocacao = pRiscosDoEstabelecimento.IDAlocacao;
                 tempRiscosDoEstabelecimento.Imagem = pRiscosDoEstabelecimento.Imagem;
                 tempRiscosDoEstabelecimento.IDAtividadesDoEstabelecimento = pRiscosDoEstabelecimento.IDAtividadesDoEstabelecimento;
-                tempRiscosDoEstabelecimento.IDEventoPerigoso = pRiscosDoEstabelecimento.IDEventoPerigoso;
-                tempRiscosDoEstabelecimento.PossiveisDanos = pRiscosDoEstabelecimento.PossiveisDanos;
-                tempRiscosDoEstabelecimento.TipoDeRisco = pRiscosDoEstabelecimento.TipoDeRisco;
-                tempRiscosDoEstabelecimento.FonteGeradora = pRiscosDoEstabelecimento.FonteGeradora;
-                tempRiscosDoEstabelecimento.EventoPerigoso = pRiscosDoEstabelecimento.EventoPerigoso;
-                tempRiscosDoEstabelecimento.Tragetoria = pRiscosDoEstabelecimento.Tragetoria;
+                //tempRiscosDoEstabelecimento.IDEventoPerigoso = pRiscosDoEstabelecimento.IDEventoPerigoso;
+                //tempRiscosDoEstabelecimento.PossiveisDanos = pRiscosDoEstabelecimento.PossiveisDanos;
+                //tempRiscosDoEstabelecimento.TipoDeRisco = pRiscosDoEstabelecimento.TipoDeRisco;
+                //tempRiscosDoEstabelecimento.FonteGeradora = pRiscosDoEstabelecimento.FonteGeradora;
+                //tempRiscosDoEstabelecimento.EventoPerigoso = pRiscosDoEstabelecimento.EventoPerigoso;
+                //tempRiscosDoEstabelecimento.Tragetoria = pRiscosDoEstabelecimento.Tragetoria;
                 tempRiscosDoEstabelecimento.Ativo = pRiscosDoEstabelecimento.Ativo;
                 tempRiscosDoEstabelecimento.DescricaoDestaAtividade = pRiscosDoEstabelecimento.DescricaoDestaAtividade;
                 base.Alterar(tempRiscosDoEstabelecimento);

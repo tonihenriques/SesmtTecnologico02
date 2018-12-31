@@ -114,11 +114,13 @@
     <Compile Include="Entidades\Estabelecimento.cs" />
     <Compile Include="Entidades\EstabelecimentoAmbiente.cs" />
     <Compile Include="Entidades\EventoPerigoso.cs" />
+    <Compile Include="Entidades\PerigoPotencial.cs" />
     <Compile Include="Entidades\Exposicao.cs" />
     <Compile Include="Entidades\Funcao.cs" />
     <Compile Include="Entidades\MedidasDeControleExistentes.cs" />
     <Compile Include="Entidades\PlanoDeAcao.cs" />
     <Compile Include="Entidades\PossiveisDanos.cs" />
+    <Compile Include="Entidades\Rel_AtivEstabTipoRisco.cs" />
     <Compile Include="Entidades\TipoDeRisco.cs" />
     <Compile Include="Enums\ETipoPlanoAcao.cs" />
     <Compile Include="Enums\EControle.cs" />

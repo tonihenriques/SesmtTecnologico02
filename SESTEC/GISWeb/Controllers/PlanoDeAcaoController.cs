@@ -116,7 +116,7 @@ namespace GISWeb.Controllers
                 return Json(new { resultado = new RetornoJSON() { Erro = "Já existe um Plano de Ação em andamento para este Risco!" } });
             }
 
-            if(MedidasDeControleBusiness.Consulta.Any(u=>string.IsNullOrEmpty(u.UsuarioExclusao) &&(u.IDAtividadesDoEstabelecimento.Equals(IDIdentificador))))
+            if(MedidasDeControleBusiness.Consulta.Any(u=>string.IsNullOrEmpty(u.UsuarioExclusao) &&(u.IDTipoDeRisco.Equals(IDIdentificador))))
             {
                 return Json(new { resultado = new RetornoJSON() { Erro = "Já existe controle para este risco!" } });
             }
@@ -196,7 +196,7 @@ namespace GISWeb.Controllers
 
             try
             {
-                MedidasDeControleExistentes oMedidasDeControle = MedidasDeControleBusiness.Consulta.FirstOrDefault(p => p.IDAtividadesDoEstabelecimento.Equals(IDidentificador));
+                MedidasDeControleExistentes oMedidasDeControle = MedidasDeControleBusiness.Consulta.FirstOrDefault(p => p.IDTipoDeRisco.Equals(IDidentificador));
 
                 PlanoDeAcao oPlanoDeAcao = PlanoDeAcaoBusiness.Consulta.FirstOrDefault(p => p.IDPlanoDeAcao.Equals(IDplano));
                 if (oPlanoDeAcao == null)

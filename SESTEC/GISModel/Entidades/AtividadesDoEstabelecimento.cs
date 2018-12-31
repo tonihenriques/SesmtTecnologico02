@@ -18,14 +18,14 @@ namespace GISModel.Entidades
         [Display(Name ="Ativar")]
         public string Ativo { get; set; }
 
-        [Display(Name ="Classifique o Risco")]
-        public EClasseDoRisco EClasseDoRisco { get; set; }
+        //[Display(Name ="Classifique o Risco")]
+        //public EClasseDoRisco EClasseDoRisco { get; set; }
 
         [Display(Name ="Descrição desta Atividade")]
         public string DescricaoDestaAtividade { get; set; }
 
-        [Display(Name ="Fonte Geradora")]
-        public string FonteGeradora { get; set; }
+        //[Display(Name ="Fonte Geradora")]
+        //public string FonteGeradora { get; set; }
 
         [Display(Name ="Nome da Imagem ")]
         public string NomeDaImagem { get; set; }
@@ -39,10 +39,10 @@ namespace GISModel.Entidades
         [Display(Name = "Estabelecimento")]
         public string IDEstabelecimento { get; set; }
 
-        [Display(Name ="Tipo de Risco")]
-        public string IDTipoDeRisco { get; set; }
+        //[Display(Name ="Tipo de Risco")]
+        //public string IDTipoDeRisco { get; set; }
 
-        [Display(Name = "Tipo de Risco")]
+        [Display(Name = "Possiveis Danos")]
         public string IDPossiveisDanos { get; set; }
 
         [Display(Name = "Evento Perigoso")]
@@ -51,15 +51,15 @@ namespace GISModel.Entidades
         [Display(Name = "Alocacao")]
         public string IDAlocacao { get; set; }
 
-        [Display(Name ="Tragetória")]
-        public string Tragetoria { get; set; }
+        //[Display(Name ="Tragetória")]
+        //public string Tragetoria { get; set; }
 
 
         public virtual EstabelecimentoAmbiente EstabelecimentoImagens { get; set; }
 
         public virtual Estabelecimento Estabelecimento { get; set; }
 
-        public virtual TipoDeRisco TipoDeRisco { get; set; }
+        //public virtual TipoDeRisco TipoDeRisco { get; set; }
 
         public virtual PossiveisDanos PossiveisDanos { get; set; }
 

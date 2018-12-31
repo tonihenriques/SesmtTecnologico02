@@ -27,6 +27,12 @@ namespace GISWeb.Controllers
         [Inject]
         public IPossiveisDanosBusiness PossiveisDanosBusiness { get; set; }
 
+        [Inject]
+        public IPerigoPotencialBusiness PerigoPotencialBusiness { get; set; }
+
+        [Inject]
+        public IAtividadesDoEstabelecimentoBusiness AtividadesDoEstabelecimentoBusiness { get; set; }
+
         //[Inject]
         //public IAtividadeRiscosBusiness AtividadeRiscosBusiness { get; set; }
 
@@ -138,11 +144,60 @@ namespace GISWeb.Controllers
 
 
 
-        public ActionResult Novo()
+        public ActionResult Novo(string id, string Nome, string Ativida)
         {
             ViewBag.EventoPerigoso = new SelectList(EventoPerigosoBusiness.Consulta.ToList(), "IDEventoPerigoso", "Descricao");
             ViewBag.PossiveisDanos = new SelectList(PossiveisDanosBusiness.Consulta.ToList(), "IDPossiveisDanos", "DescricaoDanos");
-            
+            ViewBag.EventPeriPotencial = new SelectList(PerigoPotencialBusiness.Consulta.ToList(), "IDPerigoPotencial", "DescricaoEvento");
+            ViewBag.AtivEstabelecimento = new SelectList(AtividadesDoEstabelecimentoBusiness.Consulta.ToList(), "IDAtividadesDoEstabelecimento", "DescricaoDestaAtividade");
+            ViewBag.idAtividadeEstabel = id;
+            ViewBag.Nome = Nome;
+            ViewBag.Ativiade = Ativida;
+
+            List<TipoDeRisco> Riscos = (from Tip in TipoDeRiscoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                        join ATE in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                        on Tip.idAtividadesDoEstabelecimento equals ATE.IDAtividadesDoEstabelecimento
+                                        join PD in PossiveisDanosBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                        on Tip.idPossiveisDanos equals PD.IDPossiveisDanos
+                                        join PP in PerigoPotencialBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                        on Tip.idPerigoPotencial equals PP.IDPerigoPotencial
+                                        join EP in EventoPerigosoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                        on Tip.idEventoPerigoso equals EP.IDEventoPerigoso
+                                        where ATE.IDAtividadesDoEstabelecimento.Equals(id)
+                                        select new TipoDeRisco()
+                                        {
+                                            IDTipoDeRisco = Tip.IDTipoDeRisco,
+                                            EClasseDoRisco = Tip.EClasseDoRisco,
+                                            FonteGeradora = Tip.FonteGeradora,
+                                            Tragetoria = Tip.Tragetoria,
+                                            PossiveisDanos = new PossiveisDanos()
+                                            {
+                                                DescricaoDanos = PD.DescricaoDanos,
+
+                                            },
+                                            PerigoPotencial = new PerigoPotencial()
+                                            {
+                                                DescricaoEvento = PP.DescricaoEvento,
+                                            },
+                                            EventoPerigoso = new EventoPerigoso()
+                                            {
+                                                Descricao = EP.Descricao,
+                                            },
+                                            AtividadesDoEstabelecimento = new AtividadesDoEstabelecimento()
+                                            {
+                                                IDAtividadesDoEstabelecimento = ATE.IDAtividadesDoEstabelecimento
+                                            }
+
+
+
+                                        }
+
+
+                                        ).ToList();
+
+            ViewBag.DescricaoRiscos = Riscos;
+
+
             return View();
         }
 
@@ -152,18 +207,24 @@ namespace GISWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Cadastrar(TipoDeRisco oTipoDeRisco)
+        public ActionResult Cadastrar(TipoDeRisco oTipoDeRisco, string idAtividadeEstabel)
         {
 
+
+            
             if (ModelState.IsValid)
             {
+
                 try
                 {
+                    AtividadesDoEstabelecimento oAtividadesDoEstabelecimento = AtividadesDoEstabelecimentoBusiness.Consulta.FirstOrDefault(p => p.IDAtividadesDoEstabelecimento.Equals(idAtividadeEstabel));
+
+                    oTipoDeRisco.idAtividadesDoEstabelecimento = idAtividadeEstabel;
                     TipoDeRiscoBusiness.Inserir(oTipoDeRisco);
 
-                    TempData["MensagemSucesso"] = "O Risco '" + oTipoDeRisco.DescricaoDoRisco + "' foi cadastrado com sucesso!";
+                    TempData["MensagemSucesso"] = "O Risco foi cadastrado com sucesso!";
 
-                    return Json(new { resultado = new RetornoJSON() { URL = Url.Action("Index", "TipoDeRisco") } });
+                    return Json(new { resultado = new RetornoJSON() { URL = Url.Action("Novo", "TipoDeRisco" , new { id = idAtividadeEstabel, Nome = oAtividadesDoEstabelecimento.Estabelecimento.NomeCompleto, Ativida = oAtividadesDoEstabelecimento.DescricaoDestaAtividade })  } });
 
                 }
                 catch (Exception ex)
@@ -205,7 +266,7 @@ namespace GISWeb.Controllers
                 {
                     TipoDeRiscoBusiness.Alterar(oTipoDeRisco);
 
-                    TempData["MensagemSucesso"] = "O Tipo de Risco '"+ oTipoDeRisco.DescricaoDoRisco +"' foi atualizado com sucesso.";
+                    TempData["MensagemSucesso"] = "O Tipo de Risco foi atualizado com sucesso.";
 
                     return Json(new { resultado = new RetornoJSON() { URL = Url.Action("Index", "TipoDeRisco") } });
                 }
@@ -257,7 +318,7 @@ namespace GISWeb.Controllers
                     oTipoDeRisco.UsuarioExclusao = "LoginTeste";
                     TipoDeRiscoBusiness.Alterar(oTipoDeRisco);
 
-                    return Json(new { resultado = new RetornoJSON() { Sucesso = "O risco '" + oTipoDeRisco.DescricaoDoRisco + "' foi excluído com sucesso." } });
+                    return Json(new { resultado = new RetornoJSON() { Sucesso = "O risco foi excluído com sucesso." } });
                 }
             }
             catch (Exception ex)

@@ -16,6 +16,7 @@ namespace GISCore.Repository.Configuration
             Database.SetInitializer<SESTECContext>(null);
         }
 
+        public DbSet<Rel_AtivEstabTipoRisco> Rel_AtivEstabTipoRisco { get; set; }
 
         public DbSet<Empresa> Empresa { get; set; }
 
@@ -55,7 +56,10 @@ namespace GISCore.Repository.Configuration
 
         public DbSet<PlanoDeAcao> PlanoDeAcao { get; set; }
 
-        public DbSet<Exposicao> Exposicao { get; set; }  
+        public DbSet<Exposicao> Exposicao { get; set; }
+
+        public DbSet<PerigoPotencial> PerigoPotencial { get; set; }
+       
         
         //public DbSet<Alocar> Alocar { get; set; }
 
@@ -68,7 +72,7 @@ namespace GISCore.Repository.Configuration
 
         //public DbSet<CNAE> CNAE { get; set; }
 
-        
+
 
         //public DbSet<AlocacaoAtividades> AlocacaoAtividades { get; set; }
 

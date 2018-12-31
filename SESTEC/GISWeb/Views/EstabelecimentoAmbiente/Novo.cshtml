@@ -133,7 +133,7 @@
         </div>
     }<br /><br />
 
-</div> <!-- Fim FormQuery -->
+@*</div>*@ <!-- Fim FormQuery -->
 
 <br/>
 
@@ -205,7 +205,7 @@
                                 <th width="100px"></th>
                                 @*<th width="300px">Nome da Ambiente</th>*@
                                 <th>Resumo do Local</th>
-                                <th width="100px">Riscos</th>
+                                <th width="100px">Cadastrar Atividades</th>
                             </tr>
 
                         </thead>
@@ -229,7 +229,7 @@
                                 @*<a href='@Url.Action("Edicao", "AtividadesDoEstabelecimento", new { id = @iImagens.IDEstabelecimentoImagens })' class="green" data-rel="tooltip" title="Editar">
                             <i class="ace-icon fa fa-pencil bigger-130"></i>
                         </a>*@
-                                <a href='@Url.Action("Novo", "AtividadesDoEstabelecimento", new { id = @iImagens.IDEstabelecimentoImagens, nome = iImagens.NomeDaImagem, idEstabelecimento = iImagens.Estabelecimento.IDEstabelecimento })' class="tooltip-success" data-rel="tooltip" title="Cadastrar Riscos deste Ambiente">
+                                <a href='@Url.Action("Novo", "AtividadesDoEstabelecimento", new { id = @iImagens.IDEstabelecimentoImagens, nome = iImagens.NomeDaImagem, idEstabelecimento = iImagens.Estabelecimento.IDEstabelecimento })' class="tooltip-success" data-rel="tooltip" title="Cadastrar Atividades deste Ambiente">
                                     <span class="green">
                                         <i class="ace-icon fa fa-pencil-square-o bigger-140"></i>
                                     </span>

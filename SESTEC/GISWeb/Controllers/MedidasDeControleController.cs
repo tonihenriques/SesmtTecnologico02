@@ -22,6 +22,9 @@ namespace GISWeb.Controllers
         public IMedidasDeControleBusiness MedidasDeControleBusiness { get; set; }
 
         [Inject]
+        public ITipoDeRiscoBusiness TipoDeRiscoBusiness { get; set; }
+
+        [Inject]
         public IEstabelecimentoBusiness EstabelecimentoBusiness { get; set; }
 
         [Inject]
@@ -41,10 +44,10 @@ namespace GISWeb.Controllers
 
         public ActionResult BuscarDetalhesDeMedidasDeControleEstabelecimento(string IDAtividadesDoEstabelecimento)
         {
-            ViewBag.Imagens = MedidasDeControleBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDAtividadesDoEstabelecimento.Equals(IDAtividadesDoEstabelecimento))).ToList();
+            ViewBag.Imagens = MedidasDeControleBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDTipoDeRisco.Equals(IDAtividadesDoEstabelecimento))).ToList();
             try
             {
-                MedidasDeControleExistentes oMedidasDeControleExistentes = MedidasDeControleBusiness.Consulta.FirstOrDefault(p => p.IDAtividadesDoEstabelecimento.Equals(IDAtividadesDoEstabelecimento));
+                MedidasDeControleExistentes oMedidasDeControleExistentes = MedidasDeControleBusiness.Consulta.FirstOrDefault(p => p.IDTipoDeRisco.Equals(IDAtividadesDoEstabelecimento));
                 if (oMedidasDeControleExistentes == null)
                 {
                     return Json(new { resultado = new RetornoJSON() { Alerta = "Favor cadastrar uma medida de controle ou criar um Plano de Ação!!! ." } });
@@ -108,8 +111,8 @@ namespace GISWeb.Controllers
 
             ViewBag.EstabID = id;
             ViewBag.AtivRisco = idAtivRisco;
-            ViewBag.Imagens = MedidasDeControleBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDAtividadesDoEstabelecimento.Equals(id))).ToList();
-            ViewBag.RiscoDoEstabelecimento = RiscosDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDAtividadesDoEstabelecimento.Equals(id))).ToList();
+            ViewBag.Imagens = MedidasDeControleBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDTipoDeRisco.Equals(id))).ToList();
+            ViewBag.TipoDeRisco = TipoDeRiscoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDTipoDeRisco.Equals(id))).ToList();
             ViewBag.RegistroID = new SelectList(MedidasDeControleBusiness.Consulta, "RegistroID", "Diretoria");
 
             return View();
@@ -120,7 +123,7 @@ namespace GISWeb.Controllers
         public ActionResult Cadastrar(MedidasDeControleExistentes oMedidasDeControleExistentes, string RegistroID,string AtivRiscoID)
         {
 
-            oMedidasDeControleExistentes.IDAtividadesDoEstabelecimento = RegistroID;
+            oMedidasDeControleExistentes.IDTipoDeRisco = RegistroID;
             //oMedidasDeControleExistentes.IDAtividadeRiscos = AtivRiscoID;
 
             if (ModelState.IsValid)
@@ -133,7 +136,7 @@ namespace GISWeb.Controllers
                     TempData["MensagemSucesso"] = "A imagem '" + oMedidasDeControleExistentes.NomeDaImagem + "'foi cadastrada com sucesso.";
 
                     
-                    return Json(new { resultado = new RetornoJSON() { URL = Url.Action("Novo", "MedidasDeControle", new { id = oMedidasDeControleExistentes.IDAtividadesDoEstabelecimento }) } });
+                    return Json(new { resultado = new RetornoJSON() { URL = Url.Action("Novo", "MedidasDeControle", new { id = oMedidasDeControleExistentes.IDTipoDeRisco }) } });
                 }
                 catch (Exception ex)
                 {

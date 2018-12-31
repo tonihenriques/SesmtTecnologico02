@@ -28,12 +28,17 @@ namespace GISModel.Entidades
         [Display(Name = "Controle do Agente Ambiental")]
         public EControle EControle { get; set; }
 
-        [Display(Name ="Risco do Estabelecimento")]
-        public string IDAtividadesDoEstabelecimento { get; set; }
+        [Display(Name ="Tipo de Risco")]
+        public string IDTipoDeRisco { get; set; }
+
+        public virtual TipoDeRisco TipoDeRisco { get; set; }
+
+        //[Display(Name ="Risco do Estabelecimento")]
+        //public string IDAtividadesDoEstabelecimento { get; set; }
 
         //public string IDAtividadeRiscos { get; set; }
-        
-        public virtual AtividadesDoEstabelecimento AtividadesDoEstabelecimento { get; set; }
+
+        //public virtual AtividadesDoEstabelecimento AtividadesDoEstabelecimento { get; set; }
 
         //public virtual AtividadeRiscos AtividadeRiscos { get; set; }
 

@@ -31,59 +31,22 @@
 
                     <tbody>
 
-                        @foreach (AtividadesDoEstabelecimento iImagens in ViewBag.Imagens)
+                        @foreach (TipoDeRisco iImagens in ViewBag.Imagens)
                         {
-                            <tr id="linha-@iImagens.IDAtividadesDoEstabelecimento">
+                            <tr id="linha-@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento">
                                 <td>
-                                    <img src="/Images/AtividadesEstabelecimentoImagens/@iImagens.IDAtividadesDoEstabelecimento/@iImagens.Imagem" alt="Estabelecimento" width="70px" height="70px" title="@iImagens.NomeDaImagem" />
+                                    <img src="/Images/AtividadesEstabelecimentoImagens/@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento/@iImagens.AtividadesDoEstabelecimento.Imagem" alt="Estabelecimento" width="70px" height="70px" title="@iImagens.AtividadesDoEstabelecimento.NomeDaImagem" />
 
                                 </td>
-                                <td>@iImagens.DescricaoDestaAtividade</td>
-                                <td>@iImagens.TipoDeRisco.DescricaoDoRisco</td>
-                                <td>@iImagens.TipoDeRisco.PossiveisDanos.DescricaoDanos</td>
+                                <td>@iImagens.AtividadesDoEstabelecimento.DescricaoDestaAtividade</td>
+                                <td>@iImagens.PerigoPotencial.DescricaoEvento</td>
+                                <td>@iImagens.PossiveisDanos.DescricaoDanos</td>
                                 <td>
                                      <div class="hidden-sm hidden-xs action-buttons center">
-                                        @foreach(PlanoDeAcao item in ViewBag.ExistePlanoAcao)
-                                          {   
-                                             if (ViewBag.TotalPlanoAcao == 0 )
-                                              {
-
-                                                        <a class="red" href="#" onclick="CriarPlanoDeAção('@item.IDPlanoDeAcao'); return false;">
-                                                            <i class="ace-icon fa fa-tags bigger-150" aria-hidden="true" title="Criar Plano de Ação"></i>
-                                                        </a>
-                                              }
-                                                   else
-                                                   {
-                                                         <a class="green" href="#" onclick="Detalhes('@item.IDPlanoDeAcao'); return false;">
-                                                                <i class="ace-icon fa fa-tags bigger-150" aria-hidden="true" title="Plano de Ação existente"></i>
-                                                            </a>
-                                                    }
-
-                                         }
-
-                                            @if (ViewBag.total == 0 && ViewBag.TotalPlanoAcao == 0)
-                                            {
-
-
-                                                        <a class="red" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.IDAtividadesDoEstabelecimento'); return false;">
-                                                            <i class="ace-icon fa fa-search bigger-130" title="Criar Controle"></i>
-                                                        </a>
-
-                                                        
-
-                                            }
-
-                                            @if (ViewBag.total > 0)
-                                            {
-
-                                                        <a class="green" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.IDAtividadesDoEstabelecimento'); return false;" title="Controle existente">
-                                                            <i class="ace-icon fa fa-search bigger-130"></i>
-                                                        </a>
-                                             }
-                                            
-                                         
-                                                
-                                        
+                                       
+                                         <a class="red" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.IDTipoDeRisco'); return false;">
+                                             <i class="ace-icon fa fa-search bigger-130" title="Criar Controle"></i>
+                                         </a>
 
                                         </div>
 
@@ -96,7 +59,7 @@
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                                                     <li>
-                                                        <a href="#" class="tooltip-info" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.IDAtividadesDoEstabelecimento'); return false;" data-rel="tooltip" title="View">
+                                                        <a href="#" class="tooltip-info" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.IDTipoDeRisco'); return false;" data-rel="tooltip" title="View">
                                                             <span class="blue">
                                                                 <i class="ace-icon fa fa-search-plus bigger-120"></i>
                                                             </span>
@@ -106,7 +69,7 @@
                                                 </ul>
                                             </div>
                                         </div>
-</td>
+                                </td>
                             </tr>
 
                         }

@@ -70,7 +70,7 @@ function BuscarDetalhesEstabelecimentoImagens(IDAtividadesDoEstabelecimento) {
     $.ajax({
         method: "POST",
         url: "/AtividadesDoEstabelecimento/BuscarDetalhesEstabelecimentoImagens",
-        data: { idEstabelecimento: IDAtividadesDoEstabelecimento },
+        data: { idAtividadesDoEstabelecimento: IDAtividadesDoEstabelecimento },
         error: function (erro) {
             $(".LoadingLayout").hide();
             ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')

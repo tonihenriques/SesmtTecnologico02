@@ -12,114 +12,117 @@
 <div class="row">
     <div class="col-xs-12">
         <h3 class="header smaller lighter blue">
-            <b>Riscos vinculado a este Empregado </b>
+            <b>Atividade e Riscos vinculado </b>
         </h3>
     </div>
 </div>
 
 
-<div class="row">
-    <div class="col-xs-12">
+@foreach (var iImagens1 in ViewBag.ListaAtividades)
+{
 
 
-        @if (ViewBag.Imagens != null)
-        {
-            <div>
-                <table id="RiscosRelacionadoAmbiente" class="table table-striped table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th width="100px"></th>
-                            <th>Atividade</th>
-                            <th>Descrição </th>
-                            <th>Possíveis Danos</th>
-                            <th width="50px">Controle</th>
-                        </tr>
 
-                    </thead>
+    <img src="/Images/AtividadesEstabelecimentoImagens/@iImagens1.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento/@iImagens1.AtividadesDoEstabelecimento.Imagem" alt="Estabelecimento" width="90px" title="@iImagens1.AtividadesDoEstabelecimento.NomeDaImagem" />
 
-                    <tbody>
-
-                        @foreach (AtividadeAlocada iImagens in ViewBag.Imagens)
-                        {
-                            <tr id="linha-@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento">
-                                <td>
-                                    <img src="/Images/AtividadesEstabelecimentoImagens/@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento/@iImagens.AtividadesDoEstabelecimento.Imagem" alt="Estabelecimento" width="70px" height="70px" title="@iImagens.AtividadesDoEstabelecimento.NomeDaImagem" />
-
-                                </td>
-                                <td>@iImagens.AtividadesDoEstabelecimento.DescricaoDestaAtividade</td>
-                                <td>@iImagens.AtividadesDoEstabelecimento.TipoDeRisco.DescricaoDoRisco</td>
-                                <td>@iImagens.AtividadesDoEstabelecimento.TipoDeRisco.PossiveisDanos.DescricaoDanos</td>
-                                <td>
-                                    <div class="hidden-sm hidden-xs action-buttons center">
-                                       @foreach(MedidasDeControleExistentes item in ViewBag.IDAtivEstab)
-                                       {
-                                        
-                                           if (@item.IDAtividadesDoEstabelecimento == @iImagens.idAtividadesDoEstabelecimento)
-                                           {
-
-                                        <div class="hidden-sm hidden-xs action-buttons">
-                                            <a class="green" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento'); return false;">
-                                                <i class="ace-icon fa fa-search bigger-130" title="Medida de Controle Existente"></i>
-                                            </a>
-                                            <a class="red2" href="#" onclick="Exposicao('@iImagens.IDAtividadeAlocada','@iImagens.idAlocacao','@iImagens.AtividadesDoEstabelecimento.IDEstabelecimento');" data-rel="tooltip" title="Cadastrar Exposição ">
-                                                <i class="ace-icon fa fa-bolt bigger-130"></i>
-                                                
-                                            </a>
-                                        </div>
-                                           }
-                                           else
-                                           {
-                                        <div class="hidden-sm hidden-xs action-buttons">
-                                            <a class="red" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento'); return false;">
-                                                <i class="ace-icon fa fa-search bigger-130" title="Não existe Medida de Controle"></i>
-                                            </a>
-                                            <a class="red2" href="#" onclick="Exposicao('@iImagens.IDAtividadeAlocada','@iImagens.idAlocacao','@iImagens.AtividadesDoEstabelecimento.IDEstabelecimento');" data-rel="tooltip" title="Cadastrar Exposição ">
-                                                <i class="ace-icon fa fa-bolt bigger-130"></i>
-
-                                            </a>
-
-                                        </div>
+    <i>&nbsp; @iImagens1.AtividadesDoEstabelecimento.DescricaoDestaAtividade</i>
 
 
-                                           }
-
-                                       }
 
 
-                                    </div>
+    <div class="row">
+        <div class="col-xs-12">
 
-                                    <div class="hidden-md hidden-lg">
-                                        <div class="inline pos-rel">
-                                            <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                                                <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-                                            </button>
 
-                                            <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                                <li>
-                                                    <a href="#" class="tooltip-info" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento'); return false;" data-rel="tooltip" title="View">
-                                                        <span class="blue">
-                                                            <i class="ace-icon fa fa-search-plus bigger-120"></i>
-                                                        </span>
-                                                    </a>
-                                                </li>
 
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </td>
+            @if (ViewBag.Imagens != null )
+            {
+
+                <div>
+                    <table id="RiscosRelacionadoAmbiente" class="table table-striped table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                @*<th width="100px"></th>*@
+
+                                <th>Descrição </th>
+                                <th>Possíveis Danos</th>
+                                <th width="50px">Controle</th>
                             </tr>
 
-                        }
+                        </thead>
 
-                    </tbody>
-                </table>
-            </div>
+                        <tbody>
 
 
-        }
 
+
+                            @foreach (var iImagens in ViewBag.DescricaoRiscos)
+                            {
+                               
+                            
+                                
+
+
+                                <tr id="linha-@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento">
+
+
+
+
+
+                                    <td>@iImagens.AtividadesDoEstabelecimento.EventoPerigoso.Descricao</td>
+                                    <td>@iImagens.AtividadesDoEstabelecimento.PossiveisDanos.DescricaoDanos</td>
+                                        <td> 
+                                           
+
+                                                <div class="hidden-sm hidden-xs action-buttons center">
+                                                    <div class="hidden-sm hidden-xs action-buttons">
+                                                        <a class="green" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.IDTipoDeRisco'); return false;">
+                                                            <i class="ace-icon fa fa-search bigger-130" title="Medida de Controle Existente"></i>
+                                                        </a>
+
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="hidden-md hidden-lg">
+                                                    <div class="inline pos-rel">
+                                                        <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
+                                                            <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
+                                                        </button>
+
+                                                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+                                                            <li>
+                                                                <a href="#" class="tooltip-info" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento'); return false;" data-rel="tooltip" title="View">
+                                                                    <span class="blue">
+                                                                        <i class="ace-icon fa fa-search-plus bigger-120"></i>
+                                                                    </span>
+                                                                </a>
+                                                            </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                           
+                                 </td>
+
+                                    
+
+                                </tr>
+
+
+                            }    
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+            }
+
+        </div>
     </div>
-</div>
+}
 
 
 @*@section Scripts {

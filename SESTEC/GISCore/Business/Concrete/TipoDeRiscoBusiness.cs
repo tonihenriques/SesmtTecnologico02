@@ -34,7 +34,7 @@ namespace GISCore.Business.Concrete
                 throw new Exception("não foi possível encontrar este Tipo de Risco!");
             }
             
-            tempTipoDeRisco.DescricaoDoRisco = oTipoDeRisco.DescricaoDoRisco;
+            tempTipoDeRisco.idPerigoPotencial = oTipoDeRisco.idPerigoPotencial;
             tempTipoDeRisco.PossiveisDanos = oTipoDeRisco.PossiveisDanos;
 
             base.Alterar(tempTipoDeRisco);
