@@ -167,19 +167,20 @@
                        
                                        
 
-                                        <div class="hidden-sm hidden-xs action-buttons center">
-                                                                                       
+                        <div class="hidden-sm hidden-xs action-buttons center">
 
-                                            <a href='@Url.Action("Novo", "MedidasDeControle", new { id = @iRisco.IDTipoDeRisco, idAtivRisco = iRisco.EventoPerigoso.Descricao})' class="tooltip-success" data-rel="tooltip" title="Cadastrar Controles deste Ambiente">
-                                                <span class="green">
-                                                    <i class="ace-icon fa fa-pencil-square-o bigger-180"></i>
-                                                </span>
-                                            </a>
-                                            <a class="red" href="#" onclick="CriarPlanoDeAção('@iRisco.IDTipoDeRisco'); return false;">
-                                                <i class="ace-icon fa fa-tags bigger-150" aria-hidden="true" title="Criar Plano de Ação"></i>
-                                            </a>
 
-                                        </div>
+                            <a href='@Url.Action("Novo", "MedidasDeControle", new { id = @iRisco.IDTipoDeRisco, idAtivRisco = iRisco.EventoPerigoso.Descricao})' class="tooltip-success" data-rel="tooltip" title="Cadastrar Controles deste Risco">
+                                <span class="green">
+                                    <i class="ace-icon fa fa-pencil-square-o bigger-180"></i>
+                                </span>
+                            </a>
+                            
+                            <a class="red" href="#" onclick="CriarPlanoDeAção(IDIdentificador='@iRisco.IDTipoDeRisco'); return false;">
+                                <i class="ace-icon fa fa-tags bigger-150" aria-hidden="true" title="Criar Plano de Ação"></i>
+                            </a>
+
+                        </div>
                                            
                                            
                                             
@@ -208,7 +209,7 @@
 @section Scripts {
 
     <script src="~/Scripts/Custom/TipoDeRisco/Novo.js"></script>
-
+    <script src="~/Scripts/Custom/PlanoDeAcao/Novo.js"></script>
 }
 
 

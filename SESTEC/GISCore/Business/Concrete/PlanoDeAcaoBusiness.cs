@@ -16,8 +16,8 @@ namespace GISCore.Business.Concrete
         public override void Inserir(PlanoDeAcao pPlanoDeAcao)
         {
 
-           // if (Consulta.Any(u => u.Identificador.Equals(pPlanoDeAcao.Identificador)))
-               // throw new InvalidOperationException("Não é possível inserir este Plano de Ação, pois já existe um em andamento.");
+            if (Consulta.Any(u => u.Identificador.Equals(pPlanoDeAcao.Identificador)))
+                throw new InvalidOperationException("Não é possível inserir este Plano de Ação, pois já existe um em andamento.");
 
             //if ((Consulta.Any(u => u.IdAdmissao.Equals(oAlocacao.IdAdmissao) && u.Ativado == "true")))
 

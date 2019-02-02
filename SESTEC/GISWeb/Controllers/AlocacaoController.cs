@@ -16,6 +16,8 @@ namespace GISWeb.Controllers
         #region
 
 
+        
+
         [Inject]
         public ITipoDeRiscoBusiness TipoDeRiscoBusiness { get; set; }
 
@@ -80,7 +82,8 @@ namespace GISWeb.Controllers
         
         public ActionResult Novo(string IDAdmissao,string IDEmpregado,string IDEmpresa)
         {
-            
+
+            ViewBag.Equipe = new SelectList(EquipeBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList(), "IDEquipe", "NomeDaEquipe");
             ViewBag.pAdmissao = IDAdmissao;
             ViewBag.pEmpregado = IDEmpregado;
             ViewBag.Admissao = AdmissaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)&& p.IDAdmissao.Equals(IDAdmissao) ).ToList();
@@ -137,6 +140,8 @@ namespace GISWeb.Controllers
                     
                     //precisa passa o id do Empregado
                     return Json(new { resultado = new RetornoJSON() { URL = Url.Action("PerfilEmpregado", "Admissao", new { id = IDEmpregado }) } });
+
+
                 }
                 catch (Exception ex)
                 {

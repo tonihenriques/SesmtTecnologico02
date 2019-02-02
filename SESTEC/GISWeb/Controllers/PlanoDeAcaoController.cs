@@ -72,6 +72,69 @@ namespace GISWeb.Controllers
             return View();
         }
 
+
+
+        public ActionResult ListarPlanoDeAcao(string idTipoDeRisco)
+        {
+
+
+            
+
+            ViewBag.PlanoDeAcao = PlanoDeAcaoBusiness.Consulta.Where(d => string.IsNullOrEmpty(d.UsuarioExclusao) && (d.Identificador.Equals(idTipoDeRisco))).ToList();
+            
+            //if (!PlanoDeAcaoBusiness.Consulta.Any(u => u.Identificador.Equals(idTipoDeRisco)))
+            //    throw new InvalidOperationException("Não existe um Plano de Ação para este risco!");
+
+
+            ViewBag.AtividadeEstabelecimento = AtividadesDoEstabelecimentoBusiness.Consulta.Where(d => string.IsNullOrEmpty(d.UsuarioExclusao)).ToList();
+
+            var IDAtividadeEstab = from AE in AtividadesDoEstabelecimentoBusiness.Consulta.Where(d => string.IsNullOrEmpty(d.UsuarioExclusao)).ToList()
+                                   join PA in PlanoDeAcaoBusiness.Consulta.Where(d => string.IsNullOrEmpty(d.UsuarioExclusao)).ToList()
+                                   on AE.IDAtividadesDoEstabelecimento equals PA.Identificador
+                                   select new AtividadesDoEstabelecimento()
+                                   {
+                                       IDAtividadesDoEstabelecimento = AE.IDAtividadesDoEstabelecimento,
+                                       DescricaoDestaAtividade = AE.DescricaoDestaAtividade
+
+                                   };
+
+            ViewBag.AtivEstab = IDAtividadeEstab;
+
+
+
+            ViewBag.DataAtual = DateTime.Now;
+
+            var lAtividades =ViewBag.PlanoDeAcao;
+
+            var Plan = (from PA in PlanoDeAcaoBusiness.Consulta.Where(d => string.IsNullOrEmpty(d.UsuarioExclusao)).ToList()
+                        where PA.Identificador.Equals(idTipoDeRisco)
+                        select new PlanoDeAcao()
+                        {
+                            IDPlanoDeAcao = PA.IDPlanoDeAcao
+
+                        }
+
+                        ).ToList();
+
+
+            var ContarPlan = Plan.Count();
+
+            ViewBag.ContPlan = ContarPlan;
+
+
+            if (ContarPlan <=0)
+            {
+                return Json(new { resultado = new RetornoJSON() { Alerta = "Plano de Ação não encontrado." } });
+            }
+            else
+            {
+                return Json(new { data = RenderRazorViewToString("_ListarPlanoDeAcao", lAtividades) });
+            }
+
+            //return View();
+        }
+
+
         public ActionResult Detalhes(string IDPlanoDeAcao)
         {
             //ViewBag.PlanoDeAcao = PlanoDeAcaoBusiness.Consulta.Where(d => string.IsNullOrEmpty(d.UsuarioExclusao) && d.IDPlanoDeAcao.Equals(IDPlanoDeAcao)).ToList();
@@ -108,7 +171,7 @@ namespace GISWeb.Controllers
             ViewBag.IDIentificador = IDIdentificador;
             ViewBag.PlanoDeAcao = PlanoDeAcaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToString();
             ViewBag.Departamento = new SelectList(DepartamentoBusiness.Consulta.ToList(), "Sigla", "Sigla");
-           
+           PlanoDeAcao oPlanoDeAcao = PlanoDeAcaoBusiness.Consulta.FirstOrDefault(p=>p.Identificador.Equals(IDIdentificador));
             if (PlanoDeAcaoBusiness.Consulta.Any(u =>string.IsNullOrEmpty(u.UsuarioExclusao) && (u.Identificador.Equals(IDIdentificador))))
                 
             {
@@ -123,7 +186,7 @@ namespace GISWeb.Controllers
             try
             {                
                 
-                    return Json(new { data = RenderRazorViewToString("_PlanoDeAcao") });
+                    return Json(new { data = RenderRazorViewToString("_PlanoDeAcao", oPlanoDeAcao) });
 
 
                 

@@ -34,6 +34,82 @@ function BuscarDetalhesEstabelecimentoImagens(IDEstabelecimentoImagens) {
 
 }
 
+
+//
+function ListaExposicao(idAlocacao, idAtividadeAlocada,Nome, cpf, idAtividadeEstabelecimento) {
+
+    $(".LoadingLayout").show();
+
+    $.ajax({
+        method: "POST",
+        url: "/Admissao/ListaExposicao",
+        data: { idAlocacao: idAlocacao, idAtividadeAlocada: idAtividadeAlocada, Nome: Nome, cpf: cpf, idAtividadeEstabelecimento: idAtividadeEstabelecimento },
+        error: function (erro) {
+            $(".LoadingLayout").hide();
+            ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')
+        },
+        success: function (content) {
+            $(".LoadingLayout").hide();
+
+            if (content.data != null) {
+                bootbox.dialog({
+                    message: content.data,
+                    title: "<span class='bigger-110'>Exposição ao Risco</span>",
+                    backdrop: true,
+                    locale: "br",
+                    buttons: {},
+                    onEscape: true
+                });
+            }
+            else {
+                TratarResultadoJSON(content.resultado);
+            }
+
+        }
+    });
+
+}
+
+
+
+//
+function ListarPlanoDeAcao(idTipoDeRisco) {
+
+    $(".LoadingLayout").show();
+
+    $.ajax({
+        method: "POST",
+        url: "/PlanoDeAcao/ListarPlanoDeAcao",
+        data: { idTipoDeRisco: idTipoDeRisco },
+        error: function (erro) {
+            $(".LoadingLayout").hide();
+            ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')
+        },
+        success: function (content) {
+            $(".LoadingLayout").hide();
+
+            if (content.data != null) {
+                bootbox.dialog({
+                    message: content.data,
+                    title: "<span class='bigger-110'>Lista Plano de Ação</span>",
+                    backdrop: true,
+                    locale: "br",
+                    buttons: {},
+                    onEscape: true
+                });
+            }
+            else {
+                TratarResultadoJSON(content.resultado);
+            }
+
+        }
+    });
+
+}
+
+
+
+
 function BuscarDetalhesDeMedidasDeControleEstabelecimento(id) {
 
     $(".LoadingLayout").show();
@@ -109,14 +185,14 @@ function DeletarEmpresa(IDAdmissao, Nome) {
 
 
 
-function Exposicao(IDAtividadeAlocada, idAlocacao, idEstabelcimento) {
+function Exposicao(IDAtividadeAlocada, idAlocacao, idTipoDeRisco, idEmpregado) {
 
     $(".LoadingLayout").show();
 
     $.ajax({
         method: "POST",
         url: "/Exposicao/Novo",
-        data: { IDAtividadeAlocada: IDAtividadeAlocada, idAlocacao: idAlocacao, idEstabelcimento: idEstabelcimento},
+        data: { IDAtividadeAlocada: IDAtividadeAlocada, idAlocacao: idAlocacao, idTipoDeRisco: idTipoDeRisco, idEmpregado: idEmpregado},
         error: function (erro) {
             $(".LoadingLayout").hide();
             ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')
@@ -229,14 +305,14 @@ function AlocarEmAmbiente(idEstabelecimento, idAlocacao) {
 
 
 
-function EstabelecimentoAmbienteAlocado(idEstabelecimento, idAlocacao, idAtividadeAlocada, idAtividadesDoEstabelecimento) {
+function EstabelecimentoAmbienteAlocado(idEstabelecimento, idAlocacao, idAtividadeAlocada, idAtividadesDoEstabelecimento, idEmpregado) {
 
     $(".LoadingLayout").show();
 
     $.ajax({
         method: "POST",
         url: "/AtividadesDoEstabelecimento/EstabelecimentoAmbienteAlocado",
-        data: { idEstabelecimento: idEstabelecimento, idAlocacao: idAlocacao, idAtividadeAlocada: idAtividadeAlocada, idAtividadesDoEstabelecimento: idAtividadesDoEstabelecimento  },
+        data: { idEstabelecimento: idEstabelecimento, idAlocacao: idAlocacao, idAtividadeAlocada: idAtividadeAlocada, idAtividadesDoEstabelecimento: idAtividadesDoEstabelecimento, idEmpregado: idEmpregado },
         error: function (erro) {
             $(".LoadingLayout").hide();
             ExibirMensagemGritter('Oops! Erro inesperado', erro.responseText, 'gritter-error')

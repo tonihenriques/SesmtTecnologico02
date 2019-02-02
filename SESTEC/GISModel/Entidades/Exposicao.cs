@@ -20,7 +20,7 @@ namespace GISModel.Entidades
 
         public string idAlocacao { get; set; }
 
-        //public string idAtividadesDoEstabelecimento { get; set; }
+        public string idTipoDeRisco { get; set; }               
 
         [Display(Name = "Tempo Estimado Mensal")]
         public string TempoEstimado { get; set; }
@@ -39,11 +39,11 @@ namespace GISModel.Entidades
 
         [Display(Name = "Severidade")]
         public ESeveridadeSeg ESeveridadeSeg { get; set; }
+
         public virtual AtividadeAlocada AtividadeAlocada { get; set; }
 
-        //public virtual EstabelecimentoAmbiente EstabelecimentoAmbientes { get; set; }
+        public virtual TipoDeRisco TipoDeRisco { get; set; }
 
-        //public virtual AtividadesDoEstabelecimento AtividadesDoEstabelecimento { get; set; }
-
+        
     }
 }

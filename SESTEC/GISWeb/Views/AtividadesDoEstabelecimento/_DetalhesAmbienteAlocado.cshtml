@@ -46,7 +46,7 @@
 
                                 <th>Descrição </th>
                                 <th>Possíveis Danos</th>
-                                <th width="50px">Controle</th>
+                                <th width="90px">Controle</th>
                             </tr>
 
                         </thead>
@@ -73,15 +73,51 @@
                                     <td>@iImagens.AtividadesDoEstabelecimento.PossiveisDanos.DescricaoDanos</td>
                                         <td> 
                                            
+                                            @if(ViewBag.TotalMCE > 0)
+                                            {                                           
 
                                                 <div class="hidden-sm hidden-xs action-buttons center">
                                                     <div class="hidden-sm hidden-xs action-buttons">
                                                         <a class="green" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.IDTipoDeRisco'); return false;">
                                                             <i class="ace-icon fa fa-search bigger-130" title="Medida de Controle Existente"></i>
                                                         </a>
+                                                        <a href="#" class="tooltip-info" onclick="Exposicao('@ViewBag.AtivAloc','@ViewBag.Aloc','@iImagens.IDTipoDeRisco',' @ViewBag.IdEmpregado');" data-rel="tooltip" title="Cadastrar Exposição ">
+                                                            <span class="red">
+                                                                <i class="ace-icon fa fa-search bigger-120"></i>
+                                                            </span>
+                                                        </a>
 
                                                     </div>
                                                 </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="hidden-sm hidden-xs action-buttons center">
+                                                    <div class="hidden-sm hidden-xs action-buttons">
+                                                        <a class="light-red" href="#" onclick="BuscarDetalhesDeMedidasDeControleEstabelecimento('@iImagens.IDTipoDeRisco'); return false;">
+                                                            <i class="ace-icon fa fa-search bigger-130" title="Medida de Controle Existente"></i>
+                                                        </a>
+
+
+                                                        <a class="red" href="#" onclick="ListarPlanoDeAcao('@iImagens.IDTipoDeRisco'); return false;">
+                                                            <i class="ace-icon fa fa-exclamation-triangle bigger-130" title="Plano de Ação"></i>
+                                                        </a>
+                                                       
+                                                        
+                                                        <a href="#" class="tooltip-info" onclick="Exposicao('@ViewBag.AtivAloc','@ViewBag.Aloc','@iImagens.IDTipoDeRisco',' @ViewBag.IdEmpregado');" data-rel="tooltip" title="Cadastrar Exposição ">
+                                                            <span class="red">
+                                                                <i class="ace-icon fa fa-search bigger-120"></i>
+                                                            </span>
+                                                        </a>
+
+                                                           
+                                                    </div>
+                                                </div>
+                                                            
+
+
+
+                                            }
 
 
 

@@ -50,27 +50,92 @@ namespace GISWeb.Controllers
         [Inject]
         public IAtividadeAlocadaBusiness AtividadeAlocadaBusiness { get; set; }
 
+        [Inject]
+        public ITipoDeRiscoBusiness TipoDeRiscoBusiness { get; set; }
+
 
 
         #endregion
 
 
 
-        public ActionResult Novo(Exposicao oExposicao, string IDAtividadeAlocada, string idAlocacao, string idEstabelcimento)
+        public ActionResult Novo(Exposicao oExposicao, string IDAtividadeAlocada, string idAlocacao, string idTipoDeRisco, string idEmpregado)
         {
-            if(ExposicaoBusiness.Consulta.Any(p=>p.idAtividadeAlocada.Equals(IDAtividadeAlocada)&&p.idAlocacao.Equals(idAlocacao)))
+            if(ExposicaoBusiness.Consulta.Any(p=>p.idAtividadeAlocada.Equals(IDAtividadeAlocada) && p.idTipoDeRisco.Equals(idTipoDeRisco)))
             {
                 return Json(new { resultado = new RetornoJSON() { Alerta = "Já existe uma exposição para esta Alocação!" } });
                 
             }
             else { 
            
-            ViewBag.AtivEstab = IDAtividadeAlocada;
+            ViewBag.AtivAloc = IDAtividadeAlocada;
             ViewBag.IDaloc = idAlocacao;
-            ViewBag.IDEstab= idEstabelcimento;
+            ViewBag.IDRisc= idTipoDeRisco;
+            ViewBag.IdEmpregado = idEmpregado;
+
+
+
             ViewBag.Imagens = AtividadeAlocadaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDAtividadeAlocada.Equals(IDAtividadeAlocada))).ToList();
 
-            var Aloc = (from a in AlocacaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDAlocacao.Equals(idAlocacao))).ToList()
+               //var Riscos = (from TP in TipoDeRiscoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+               //                   join ATE in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+               //                   on TP.idAtividadesDoEstabelecimento equals ATE.IDAtividadesDoEstabelecimento
+               //                   join ATA in AtividadeAlocadaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+               //                   on ATE.IDAtividadesDoEstabelecimento equals ATA.idAtividadesDoEstabelecimento
+               //                   where TP.IDTipoDeRisco.Equals(idTipoDeRisco)
+               //                   select new TipoDeRisco()
+               //                   {
+               //                       IDTipoDeRisco = TP.IDTipoDeRisco,
+               //                       idPossiveisDanos = TP.idPossiveisDanos,
+               //                       idAtividadesDoEstabelecimento = TP.idAtividadesDoEstabelecimento,
+               //                       idEventoPerigoso = TP.idEventoPerigoso,
+               //                       idPerigoPotencial = TP.idPerigoPotencial,
+               //                       EClasseDoRisco = TP.EClasseDoRisco,
+               //                       FonteGeradora = TP.FonteGeradora,
+               //                       Tragetoria = TP.Tragetoria
+
+               //                   }).ToList();
+
+               // ViewBag.Riscos = Riscos;
+
+
+
+
+
+
+                var EXPO = (from TR in TipoDeRiscoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                            
+                            join ATE in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                            on TR.idAtividadesDoEstabelecimento equals ATE.IDAtividadesDoEstabelecimento
+                            where TR.IDTipoDeRisco.Equals(idTipoDeRisco)
+                            select new TipoDeRisco()
+                            {
+                                IDTipoDeRisco = TR.IDTipoDeRisco,
+                                idPossiveisDanos = TR.idPossiveisDanos,
+                                idAtividadesDoEstabelecimento = TR.idAtividadesDoEstabelecimento,
+                                idEventoPerigoso = TR.idEventoPerigoso,
+                                idPerigoPotencial = TR.idPerigoPotencial,
+                                EClasseDoRisco = TR.EClasseDoRisco,
+                                FonteGeradora = TR.FonteGeradora,
+                                Tragetoria = TR.Tragetoria
+
+                            }).ToList();
+
+
+                ViewBag.Riscos = EXPO;
+
+
+
+
+
+
+
+
+
+
+
+
+                var Aloc = (from a in AlocacaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDAlocacao.Equals(idAlocacao))).ToList()
                         //group a by a.IDAlocacao into g
                         select new
                         {
@@ -105,7 +170,7 @@ namespace GISWeb.Controllers
                 }
                 else
                 {
-                    return Json(new { data = RenderRazorViewToString("_Detalhes", oExposicao) });
+                    return Json(new { data = RenderRazorViewToString("_Novo", oExposicao) });
                 }
             }
             catch (Exception ex)
@@ -127,7 +192,7 @@ namespace GISWeb.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Cadastrar(Exposicao oExposicao, string idEstabelcimento)
+        public ActionResult Cadastrar(Exposicao oExposicao, string idAtividadeAlocada,string idAlocacao, string idTipoDeRisco, string idEmpregado)
         {
             
 
@@ -135,23 +200,24 @@ namespace GISWeb.Controllers
             {
                 try
                 {
-                    
-                   // oExposicao.idAtividadesDoEstabelecimento = AtivEstab;
-                   // oExposicao.idAlocacao = AlocID;
-                   
 
+                    oExposicao.idAtividadeAlocada = idAtividadeAlocada;
+                    oExposicao.idAlocacao = idAlocacao;
+                    oExposicao.idTipoDeRisco = idTipoDeRisco;
                     ExposicaoBusiness.Inserir(oExposicao);
 
 
 
 
 
-                    //TempData["MensagemSucesso"] = "A Exposição foi registrada com sucesso.";  
+                    TempData["MensagemSucesso"] = "A Exposição foi registrada com sucesso.";  
 
-                    // return Json(new { data = RenderRazorViewToString("_DetalhesAmbienteAlocado", oExposicao) }); 
+                    //return Json(new { data = RenderRazorViewToString("_DetalhesAmbienteAlocado", oExposicao) }); 
+                    
 
-                    //return Json(new { resultado = new RetornoJSON() { URL = Url.Action("PerfilEmpregados", "Admissao", new { AdmissaoID = oExposicao.idAlocacao }) } });
-                    return Json(new { resultado = new RetornoJSON() { Sucesso = "Exposição Cadastrada com sucesso!" } });
+                    return Json(new { resultado = new RetornoJSON() { URL = Url.Action("PerfilEmpregado", "Admissao", new { id = idEmpregado}) } });
+                    
+                    //return Json(new { resultado = new RetornoJSON() { Sucesso = "Exposição Cadastrada com sucesso!" } });
 
 
                 }

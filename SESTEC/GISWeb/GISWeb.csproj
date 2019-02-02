@@ -504,6 +504,9 @@
     <Content Include="Views\Departamento\_Novo.cshtml" />
     <Content Include="Views\Diretoria\_Novo.cshtml" />
     <Content Include="Views\AtividadesDoEstabelecimento\_DetalhesAtividade.cshtml" />
+    <Content Include="Views\Exposicao\_Novo.cshtml" />
+    <Content Include="Views\Admissao\_ListaExposicao.cshtml" />
+    <Content Include="Views\PlanoDeAcao\_ListarPlanoDeAcao.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

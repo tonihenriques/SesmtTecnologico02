@@ -311,3 +311,8 @@ D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GI
 D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.Migrations.v_14.resources
 D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.Migrations.v_15.resources
 D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.Migrations.v_16.resources
+D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.Migrations.v_17.resources
+D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.Migrations.v_18.resources
+D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.Migrations.v_19.resources
+D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.Migrations.v_20.resources
+D:\Users\c056232\Documents\GitHub\SesmtTecnologico02\SESTEC\GISCore\obj\Debug\GISCore.Migrations.v_21.resources

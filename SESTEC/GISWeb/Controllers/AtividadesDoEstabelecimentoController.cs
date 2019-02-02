@@ -55,7 +55,10 @@ namespace GISWeb.Controllers
         [Inject]
         public IAdmissaoBusiness AdmissaoBusiness { get; set; }
 
-        
+        [Inject]
+        public IExposicaoBusiness ExposicaoBusiness { get; set; }
+
+
         #endregion
 
 
@@ -195,10 +198,10 @@ namespace GISWeb.Controllers
             {
 
 
-                var ListaAmbientes = from Ambiente in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                var ListaAmbientes = from Ambiente in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)&&(p.IDEstabelecimento.Equals(idEstabelecimento))).ToList()
                                      join Aloca in AtividadeAlocadaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && p.idAlocacao.Equals(idAlocacao)).ToList()
                                      
-                                     on Ambiente.IDAtividadesDoEstabelecimento equals Aloca.idAtividadesDoEstabelecimento
+                                     on Ambiente.IDAtividadesDoEstabelecimento equals Aloca.idAtividadesDoEstabelecimento                                     
                                      into productGrupo
                                      from item in productGrupo.DefaultIfEmpty()
                                      select new AtividadesAlocadasViewModel
@@ -283,10 +286,10 @@ namespace GISWeb.Controllers
 
 
 
-        public ActionResult EstabelecimentoAmbienteAlocado(string idEstabelecimento, string idAlocacao, string idAtividadeAlocada, string idAtividadesDoEstabelecimento)
+        public ActionResult EstabelecimentoAmbienteAlocado(string idEstabelecimento, string idAlocacao, string idAtividadeAlocada, string idAtividadesDoEstabelecimento, string idEmpregado)
         {
 
-
+            #region Riscos
             List<TipoDeRisco> Riscos = (from Tip in TipoDeRiscoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
                                         join ATE in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
                                         on Tip.idAtividadesDoEstabelecimento equals ATE.IDAtividadesDoEstabelecimento
@@ -295,8 +298,10 @@ namespace GISWeb.Controllers
                                         join PP in PerigoPotencialBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
                                         on Tip.idPerigoPotencial equals PP.IDPerigoPotencial
                                         join EP in EventoPerigosoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-                                        on Tip.idEventoPerigoso equals EP.IDEventoPerigoso
-                                        where ATE.IDAtividadesDoEstabelecimento.Equals(idAtividadesDoEstabelecimento)
+                                        on Tip.idEventoPerigoso equals EP.IDEventoPerigoso 
+                                        join AL in AtividadeAlocadaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                        on ATE.IDAtividadesDoEstabelecimento equals AL.idAtividadesDoEstabelecimento
+                                        where ATE.IDAtividadesDoEstabelecimento.Equals(idAtividadesDoEstabelecimento) && AL.idAlocacao.Equals(idAlocacao)
                                         select new TipoDeRisco()
                                         {
                                             IDTipoDeRisco = Tip.IDTipoDeRisco,
@@ -339,13 +344,58 @@ namespace GISWeb.Controllers
                                        ).ToList();
 
             ViewBag.DescricaoRiscos = Riscos;
-            
+
+            ViewBag.Aloc = idAlocacao;
+            ViewBag.AtivAloc = idAtividadeAlocada;
+            ViewBag.IdEmpregado = idEmpregado;
+
+
+
+
+            //Quero usar esta função abaixo para avisar na view se existe ou não Plano de Ação para o risco
+            #region
+            //var Plan = (from PA in PlanoDeAcaoBusiness.Consulta.Where(d => string.IsNullOrEmpty(d.UsuarioExclusao)).ToList()
+            //            where PA.Identificador.Equals(idTipoDeRisco)
+            //            select new PlanoDeAcao()
+            //            {
+            //                IDPlanoDeAcao = PA.IDPlanoDeAcao
+
+            //            }
+
+            //            ).ToList();
+
+            //var ContarPlan = Plan.Count();
+
+            //ViewBag.ContPlan = ContarPlan;
+
+            #endregion
+
+
+            List<AtividadeAlocada> AtividadeAloc = (from ATAL in AtividadeAlocadaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                                    join ATE in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                                    on ATAL.idAtividadesDoEstabelecimento equals ATE.IDAtividadesDoEstabelecimento
+                                                    where ATAL.idAlocacao.Equals(idAlocacao)
+                                                    select new AtividadeAlocada()
+                                                    {
+                                                        IDAtividadeAlocada = ATAL.IDAtividadeAlocada,
+                                                        idAlocacao = ATAL.idAlocacao,
+                                                        
+                                                        AtividadesDoEstabelecimento = new AtividadesDoEstabelecimento()
+                                                        {
+                                                            IDAtividadesDoEstabelecimento = ATE.IDAtividadesDoEstabelecimento
+                                                        }
+
+                                                    }
+
+
+                                                     ).ToList();
+
+            ViewBag.IDAloc = AtividadeAloc;
 
             
 
-            
 
-
+            #endregion
 
 
 
@@ -356,9 +406,11 @@ namespace GISWeb.Controllers
             //ViewBag.Imagens = AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDEstabelecimento.Equals(idEstabelecimento))).ToList();
             try
             {
+
                 AtividadesDoEstabelecimento oIDRiscosDoEstabelecimento = AtividadesDoEstabelecimentoBusiness.Consulta.FirstOrDefault(p => p.IDEstabelecimento.Equals(idEstabelecimento));
 
-
+                #region ListaAmbientes
+                
 
                 List<AtividadeAlocada> ListaAmbientes = (from AL in AtividadeAlocadaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
                                                     join ATE in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
@@ -413,49 +465,54 @@ namespace GISWeb.Controllers
                 ViewBag.Imagens = ListaAmbientes.ToList();
 
                 var lAtividades = ViewBag.Imagens;
+                #endregion
 
-
+                #region ListaAtividade
                 List<AtividadeAlocada> ListaAtividade = (from AL in AtividadeAlocadaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-                                                                    join ATV in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-                                                                    on AL.idAtividadesDoEstabelecimento equals ATV.IDAtividadesDoEstabelecimento
-                                                                    join EST in EstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-                                                                    on ATV.IDEstabelecimento equals EST.IDEstabelecimento
-                                                                    join ALOC in AlocacaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-                                                                    on EST.IDEstabelecimento equals ALOC.idEstabelecimento
-                                                                    join ADM in AdmissaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-                                                                    on ALOC.IdAdmissao equals ADM.IDAdmissao
-                                                                    where AL.idAlocacao.Equals(idAlocacao) && AL.IDAtividadeAlocada.Equals(idAtividadeAlocada)
-                                                                    select new AtividadeAlocada()
-                                                                    {
-                                                                        IDAtividadeAlocada = AL.IDAtividadeAlocada,
-                                                                        idAtividadesDoEstabelecimento = AL.idAtividadesDoEstabelecimento,
+                                                         join ATV in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                                         on AL.idAtividadesDoEstabelecimento equals ATV.IDAtividadesDoEstabelecimento
+                                                         //join EST in EstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                                         //on ATV.IDEstabelecimento equals EST.IDEstabelecimento
+                                                         //join ALOC in AlocacaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                                         //on EST.IDEstabelecimento equals ALOC.idEstabelecimento
+                                                         //join ADM in AdmissaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                                         //on ALOC.IdAdmissao equals ADM.IDAdmissao
+                                                         //join EXP in ExposicaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                                         //on AL.IDAtividadeAlocada equals EXP.idAtividadeAlocada
+                                                         where AL.idAtividadesDoEstabelecimento.Equals(idAtividadesDoEstabelecimento) && AL.idAlocacao.Equals(idAlocacao)
+                                                         select new AtividadeAlocada()
+                                                         {
+                                                             IDAtividadeAlocada = AL.IDAtividadeAlocada,
+                                                             idAtividadesDoEstabelecimento = AL.idAtividadesDoEstabelecimento,
 
-                                                                        AtividadesDoEstabelecimento = new AtividadesDoEstabelecimento()
-                                                                        {
-                                                                       
-                                                                        IDAtividadesDoEstabelecimento = ATV.IDAtividadesDoEstabelecimento,
-                                                                        Imagem = ATV.Imagem,
-                                                                        NomeDaImagem = ATV.NomeDaImagem,
-                                                                        DescricaoDestaAtividade = ATV.DescricaoDestaAtividade,
-                                                                        
-                                                                        Estabelecimento = new Estabelecimento()
-                                                                        {
-                                                                            IDEstabelecimento = EST.IDEstabelecimento,
-                                                                            NomeCompleto = EST.NomeCompleto,
 
-                                                                        }
-                                                                        },
 
-                                                                    }).ToList();
+                                                             AtividadesDoEstabelecimento = new AtividadesDoEstabelecimento()
+                                                             {
+
+                                                                 IDAtividadesDoEstabelecimento = ATV.IDAtividadesDoEstabelecimento,
+                                                                 Imagem = ATV.Imagem,
+                                                                 NomeDaImagem = ATV.NomeDaImagem,
+                                                                 DescricaoDestaAtividade = ATV.DescricaoDestaAtividade,
+
+                                                                 //Estabelecimento = new Estabelecimento()
+                                                                 //{
+                                                                 //    IDEstabelecimento = EST.IDEstabelecimento,
+                                                                 //    NomeCompleto = EST.NomeCompleto,
+
+                                                                // }
+                                                             },
+
+                                                         }).ToList();
 
                 ViewBag.ListaAtividades = ListaAtividade;
 
-                
 
 
+                #endregion
 
 
-
+                #region MedidaDeControleExistente
 
 
                 var MedidaDeControleExistente = from MC in MedidasDeControleBusiness.Consulta.Where(d => string.IsNullOrEmpty(d.UsuarioExclusao)).ToList()
@@ -488,8 +545,8 @@ namespace GISWeb.Controllers
                                                 };
                 List<MedidasDeControleExistentes> MedContEx = MedidaDeControleExistente.ToList();
 
-                
-                
+                #endregion
+
                 var TotalMedidaControle = MedContEx.Count();
 
                 ViewBag.TotalMCE = TotalMedidaControle;
@@ -589,10 +646,6 @@ namespace GISWeb.Controllers
                         ).ToList();
 
 
-
-
-
-
             List<string> Filtro = new List<string>();
             
             foreach(var lista in Lista)
@@ -644,7 +697,7 @@ namespace GISWeb.Controllers
             ViewBag.EstabID = id;
             ViewBag.EstabelecimentoID = idEstabelecimento;
             ViewBag.PerigoPotencial = new SelectList(PerigoPotencialBusiness.Consulta.ToList(), "IDPerigoPotencial", "DescricaoEvento");
-            ViewBag.Imagens = AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDEstabelecimentoImagens.Equals(id))).ToList();
+           ViewBag.Imagens01 = AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDEstabelecimentoImagens.Equals(id))).ToList();
             ViewBag.EstabelecimentoAmbiente = EstabelecimentoAmbienteBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDEstabelecimento.Equals(id))).ToList();
             //ViewBag.RegistroID = new SelectList(RiscosDoEstabelecimentoBusiness.Consulta, "RegistroID", "Diretoria");
             ViewBag.nome = nome;
@@ -663,6 +716,65 @@ namespace GISWeb.Controllers
 
             var total = MedidasDeControleExistentes.Count();
             ViewBag.total = total;
+
+            var Imagens = (from TR in TipoDeRiscoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                           join ATE in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                           on TR.idAtividadesDoEstabelecimento equals ATE.IDAtividadesDoEstabelecimento
+                           join EST in EstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                           on ATE.IDEstabelecimento equals EST.IDEstabelecimento
+                           join PP in PerigoPotencialBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                           on TR.idPerigoPotencial equals PP.IDPerigoPotencial
+                           join PD in PossiveisDanosBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                           on TR.idPossiveisDanos equals PD.IDPossiveisDanos
+                           join EP in EventoPerigosoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                           on TR.idEventoPerigoso equals EP.IDEventoPerigoso
+                           where ATE.IDEstabelecimentoImagens.Equals(id)
+                           select new TipoDeRisco()
+                           {
+                               IDTipoDeRisco = TR.IDTipoDeRisco,
+                               PerigoPotencial = new PerigoPotencial()
+                               {
+                                   IDPerigoPotencial = PP.IDPerigoPotencial,
+                                   DescricaoEvento = PP.DescricaoEvento,
+                               },
+
+                               PossiveisDanos = new PossiveisDanos()
+                               {
+                                   IDPossiveisDanos = PD.IDPossiveisDanos,
+                                   DescricaoDanos = PD.DescricaoDanos,
+
+                               },
+
+                               EventoPerigoso = new EventoPerigoso()
+                               {
+                                   IDEventoPerigoso = EP.IDEventoPerigoso,
+                                   Descricao = EP.Descricao,
+                               },
+
+
+                               AtividadesDoEstabelecimento = new AtividadesDoEstabelecimento()
+                               {
+                                   IDAtividadesDoEstabelecimento = ATE.IDAtividadesDoEstabelecimento,
+                                   NomeDaImagem = ATE.NomeDaImagem,
+                                   DescricaoDestaAtividade = ATE.DescricaoDestaAtividade,
+                                   Imagem = ATE.Imagem,
+
+                                   Estabelecimento = new Estabelecimento()
+                                   {
+                                       IDEstabelecimento = EST.IDEstabelecimento,
+                                        NomeCompleto = EST.NomeCompleto,
+                                   }
+                               }
+
+
+
+                           }
+                           ).ToList();
+
+
+            ViewBag.Imagens = Imagens;
+
+
 
 
 

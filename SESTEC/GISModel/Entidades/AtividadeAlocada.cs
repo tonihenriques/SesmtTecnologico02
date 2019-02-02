@@ -19,12 +19,11 @@ namespace GISModel.Entidades
         
         public string  idAlocacao { get; set; }
 
-
         public virtual AtividadesDoEstabelecimento AtividadesDoEstabelecimento { get; set; }
 
         public virtual Alocacao Alocacao { get; set; }
 
-
+        
 
     }
 }

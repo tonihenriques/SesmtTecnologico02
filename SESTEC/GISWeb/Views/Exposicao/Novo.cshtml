@@ -44,9 +44,9 @@
                                 {
                                      @Html.AntiForgeryToken()
 
-                                    foreach (var iRisco in ViewBag.Imagens)
+                                    foreach (var iRisco in ViewBag.Riscos)
                                     {
-                                        if ( iRisco.EClasseDoRisco.ToString() == "Acidente")
+                                        if ( @iRisco.EClasseDoRisco.ToString() == "Acidente")
                                         {
                                             <h3>Reconhecimento de Riscos(PPRA)</h3>
                                             <div class="container-fluid" style="border:1px solid #cecece;">
@@ -116,7 +116,7 @@
 
                                         }
 
-                                        if (iRisco.EClasseDoRisco.ToString()=="Doenca_Ocupacional")
+                                        if (@iRisco.EClasseDoRisco.ToString()=="Doenca_Ocupacional")
                                         {
 
                                         <h3>Reconhecimento de Riscos(PPRA)</h3>

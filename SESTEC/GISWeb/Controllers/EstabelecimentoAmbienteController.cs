@@ -143,7 +143,7 @@ namespace GISWeb.Controllers
             
             ViewBag.EstabID = id;
 
-            ViewBag.Imagens = EstabelecimentoImagensBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList();
+            ViewBag.Imagens = EstabelecimentoImagensBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDEstabelecimento.Equals(id))).ToList();
             //ViewBag.Estabelecimento = EstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao) && (p.IDEstabelecimento.Equals(id))).ToList();
 
            List<Estabelecimento>  EstabAmbiente = (from Estab in EstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()

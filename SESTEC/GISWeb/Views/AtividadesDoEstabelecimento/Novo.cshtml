@@ -198,7 +198,7 @@
                     Html.RenderPartial("_MensagensDeRetorno");
                 }*@
 
-            @if (ViewBag.Imagens != null)
+            @if (ViewBag.Imagens01 != null)
             {
                 <div>
                     <table id="dynamic-table" class="table table-striped table-bordered table-hover">
@@ -207,15 +207,16 @@
                                 <th width="100px"></th>
                                 <th width="300px">Nome da Imagem</th>
                                 @*<th>Tipo de Risco do Ambiente</th>*@
-                                <th>Descrição do Risco do Ambiente</th>
-                                <th width="120px">Riscos e Controles</th>
+                                <th>Descrição da Atividade</th>
+                                @*<th>Descrição do Risco</th>*@
+                                <th width="60px">Riscos</th>
                             </tr>
 
                         </thead>
 
                         <tbody>
 
-                            @foreach (var iImagens in ViewBag.Imagens)
+                            @foreach (var iImagens in ViewBag.Imagens01)
                             {
                                 <tr id="linha-@iImagens.IDAtividadesDoEstabelecimento">
                                     <td>
@@ -224,6 +225,7 @@
                                     <td>@iImagens.NomeDaImagem</td>
                                     @*<td>@iImagens.TipoDeRisco.DescricaoDoRisco</td>*@
                                     <td>@iImagens.DescricaoDestaAtividade</td>
+                                    @*<td>@iImagens.EventoPerigoso.Descricao</td>*@
 
                                     <td>
                                         @*@if (ViewBag.total <= 0)
@@ -232,29 +234,29 @@
                                         <div class="hidden-sm hidden-xs action-buttons center">
 
                                             <a href='@Url.Action("Novo", "TipoDeRisco", new { id = @iImagens.IDAtividadesDoEstabelecimento, Nome = iImagens.Estabelecimento.NomeCompleto, Ativida=iImagens.DescricaoDestaAtividade })' class="tooltip-success" data-rel="tooltip" title="Cadastrar Riscos">
-                                                <span class= "orange2">
+                                                <span class= "red">
                                                     <i class="ace-icon fa fa-bolt bigger-180" aria-hidden="true" ></i>
                                                 </span>
                                             </a>
 
-                                            <a href='@Url.Action("Novo", "MedidasDeControle", new { id = @iImagens.IDAtividadesDoEstabelecimento, nome = iImagens.NomeDaImagem })' class="tooltip-success" data-rel="tooltip" title="Cadastrar Controles deste Ambiente">
+                                            @*<a href='@Url.Action("Novo", "MedidasDeControle", new { id = @iImagens.IDAtividadesDoEstabelecimento, nome = iImagens.NomeDaImagem })' class="tooltip-success" data-rel="tooltip" title="Cadastrar Controles deste Ambiente">
                                                 <span class="green">
                                                     <i class="ace-icon fa fa-pencil-square-o bigger-180"></i>
                                                 </span>
-                                            </a>
-                                            <a class="red" href="#" onclick="CriarPlanoDeAção('@iImagens.IDAtividadesDoEstabelecimento'); return false;">
+                                            </a>*@
+                                            @*<a class="red" href="#" onclick="CriarPlanoDeAção('@iImagens.IDTipoDeRisco'); return false;">
                                                 <i class="ace-icon fa fa-tags bigger-150" aria-hidden="true" title="Criar Plano de Ação"></i>
-                                            </a>
+                                            </a>*@
 
                                         </div>
                                             @*}
                                             else
                                             {*@
-                                        <div class="hidden-sm hidden-xs action-buttons center">
-                                            <a class="red" href="#" onclick="CriarPlanoDeAção('@iImagens.IDAtividadesDoEstabelecimento'); return false;">
+                                        @*<div class="hidden-sm hidden-xs action-buttons center">
+                                            <a class="red" href="#" onclick="CriarPlanoDeAção('@iImagens.AtividadesDoEstabelecimento.IDAtividadesDoEstabelecimento'); return false;">
                                                 <i class="ace-icon fa fa-tags bigger-150" aria-hidden="true" title="Criar Plano de Ação"></i>
                                             </a>
-                                        </div>
+                                        </div>*@
                                             
                                           @*}*@
 
