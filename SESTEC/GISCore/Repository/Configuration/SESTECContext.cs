@@ -16,6 +16,9 @@ namespace GISCore.Repository.Configuration
             Database.SetInitializer<SESTECContext>(null);
         }
 
+        
+        public DbSet<AnaliseRisco> AnaliseRisco { get; set; }
+        
         public DbSet<Rel_AtivEstabTipoRisco> Rel_AtivEstabTipoRisco { get; set; }
 
         public DbSet<Empresa> Empresa { get; set; }

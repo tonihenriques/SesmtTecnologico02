@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business\Abstract\IAnaliseRiscoBusiness.cs" />
     <Compile Include="Business\Abstract\IPerigoPotencialBusiness.cs" />
     <Compile Include="Business\Abstract\IExposicaoBusiness.cs" />
     <Compile Include="Business\Abstract\IPlanoDeAcaoBusiness.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Business\Abstract\IMedidasDeControleBusiness.cs" />
     <Compile Include="Business\Abstract\IPossiveisDanosBusiness.cs" />
     <Compile Include="Business\Abstract\ITipoDeRiscoBusiness.cs" />
+    <Compile Include="Business\Concrete\AnaliseRiscoBusiness.cs" />
     <Compile Include="Business\Concrete\PerigoPotencialBusiness.cs" />
     <Compile Include="Business\Concrete\ExposicaoBusiness.cs" />
     <Compile Include="Business\Concrete\PlanoDeAcaoBusiness.cs" />
@@ -177,6 +179,10 @@
     <Compile Include="Migrations\201901152332083_v_21.Designer.cs">
       <DependentUpon>201901152332083_v_21.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902161752298_v_22.cs" />
+    <Compile Include="Migrations\201902161752298_v_22.Designer.cs">
+      <DependentUpon>201902161752298_v_22.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\Abstract\IBaseRepository.cs" />
@@ -252,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901152332083_v_21.resx">
       <DependentUpon>201901152332083_v_21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902161752298_v_22.resx">
+      <DependentUpon>201902161752298_v_22.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

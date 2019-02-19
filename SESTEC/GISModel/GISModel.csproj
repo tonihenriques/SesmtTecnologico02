@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="CustomAttributes\CustomValidationCNPJAttribute.cs" />
     <Compile Include="CustomAttributes\CustomValidationCPFAttribute.cs" />
+    <Compile Include="DTO\AnaliseRisco\AnaliseRiscosViewModel.cs" />
     <Compile Include="DTO\AtividadesAlocada\AtividadesAlocadasViewModel.cs" />
     <Compile Include="DTO\Conta\AutenticacaoModel.cs" />
     <Compile Include="DTO\Contrato\ContratoViewModel.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="DTO\Shared\RetornoJSON.cs" />
     <Compile Include="Entidades\Admissao.cs" />
     <Compile Include="Entidades\Alocacao.cs" />
+    <Compile Include="Entidades\AnaliseRisco.cs" />
     <Compile Include="Entidades\Atividade.cs" />
     <Compile Include="Entidades\AtividadeAlocada.cs" />
     <Compile Include="Entidades\AtividadesDoEstabelecimento.cs" />

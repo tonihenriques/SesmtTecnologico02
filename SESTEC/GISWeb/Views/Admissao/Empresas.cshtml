@@ -7,7 +7,7 @@
 <div class="row">
     <div class="col-xs-12">
         <h3 class="header smaller lighter blue">
-            Detalhes do Ambiente
+            Lista de Empresas
             @*<a href="@Url.Action("Novo", "EStabelecimentoImagens")" class="btn btn-white btn-info btn-bold" style="float: right; margin-top: -2px;">
                     <i class="ace-icon fa fa-plus bigger-120 blue"></i>
                     Nova Imagem
@@ -31,9 +31,8 @@
                         <tr>
                             <th width="50px"></th>
                             <th>CNPJ</th>
-                            <th>Nome Fatasia</th>
-                            <th class="hidden-480">Razão Social</th>
-                            <th width="89px"></th>
+                            <th>Nome Fatasia</th>                            
+                            <th width="100px">Empregados</th>
                         </tr>
                     </thead>
 
@@ -47,18 +46,8 @@
                                 </td>
 
                                 <td>@iEmpresa.CNPJ</td>
-                                <td>
-                                    @if (string.IsNullOrEmpty(iEmpresa.URL_Site))
-                                    {
-                                        <span>@iEmpresa.NomeFantasia</span>
-                                    }
-                                    else
-                                    {
-                                        <a href="@iEmpresa.URL_Site">@iEmpresa.NomeFantasia</a>
-                                    }
-
-                                </td>
-                                <td class="hidden-480">@iEmpresa.RazaoSocial</td>
+                                <td>@iEmpresa.NomeFantasia</td>
+                                
                                 <td>
                                     <div class="hidden-sm hidden-xs action-buttons center">
 

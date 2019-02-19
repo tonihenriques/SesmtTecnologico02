@@ -356,6 +356,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdmissaoController.cs" />
     <Compile Include="Controllers\AlocacaoController.cs" />
+    <Compile Include="Controllers\AnaliseRiscoController.cs" />
     <Compile Include="Controllers\AtividadeAlocadaController.cs" />
     <Compile Include="Controllers\AtividadeController.cs" />
     <Compile Include="Controllers\AtividadesDoEstabelecimentoController.cs" />
@@ -525,6 +526,7 @@
     <Folder Include="Images\MedidasDeControle\" />
     <Folder Include="Images\Relatorios\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\AnaliseRisco\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GISCore\GISCore.csproj">

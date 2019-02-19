@@ -371,74 +371,11 @@ namespace GISWeb.Controllers
 
             ViewBag.ListaAtividade = ListaExpo;
 
-            #region backup
+           
 
-            //var TipoRisco = (from EX in ExposicaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-            //                 join TR in TipoDeRiscoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-            //                 on EX.idTipoDeRisco equals TR.IDTipoDeRisco
-            //                 join ATE in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-            //                 on TR.idAtividadesDoEstabelecimento equals ATE.IDAtividadesDoEstabelecimento
-            //                 join ATL in AtividadeAlocadaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-            //                 on EX.idAtividadeAlocada equals ATL.IDAtividadeAlocada
-            //                 join EP in EventoPerigosoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-            //                 on TR.idEventoPerigoso equals EP.IDEventoPerigoso
-            //                 join PD in PossiveisDanosBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-            //                 on TR.idPossiveisDanos equals PD.IDPossiveisDanos
-            //                 join PP in PerigoPotencialBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
-            //                 on TR.idPerigoPotencial equals PP.IDPerigoPotencial
-            //                 where EX.idAlocacao.Equals(idAlocacao) && EX.idAtividadeAlocada.Equals(idAtividadeAlocada)
-            //                 select new Exposicao()
-            //                 {
-            //                     IDExposicao = EX.IDExposicao,
-            //                     TempoEstimado = EX.TempoEstimado,
-            //                     EExposicaoCalor = EX.EExposicaoCalor,
-            //                     EExposicaoInsalubre = EX.EExposicaoInsalubre,
-            //                     EExposicaoSeg = EX.EExposicaoSeg,
-            //                     EProbabilidadeSeg = EX.EProbabilidadeSeg,
-            //                     ESeveridadeSeg = EX.ESeveridadeSeg,
-            //                     idTipoDeRisco = EX.idTipoDeRisco,
-
-            //                     AtividadeAlocada = new AtividadeAlocada()
-            //                     {
-            //                         idAtividadesDoEstabelecimento = ATL.idAtividadesDoEstabelecimento
-            //                     },
-
-            //                     TipoDeRisco = new TipoDeRisco() { 
-            //                     IDTipoDeRisco = TR.IDTipoDeRisco,
-            //                     EClasseDoRisco = TR.EClasseDoRisco,
-            //                     FonteGeradora = TR.FonteGeradora,
-            //                     Tragetoria = TR.Tragetoria,
-            //                     idPossiveisDanos = TR.idPossiveisDanos,
-            //                     idEventoPerigoso = TR.idEventoPerigoso,
-            //                     idPerigoPotencial = TR.idPerigoPotencial,
-
-            //                     EventoPerigoso = new EventoPerigoso()
-            //                     {
-            //                         Descricao = EP.Descricao
-            //                     },
-            //                     PossiveisDanos = new PossiveisDanos()
-            //                     {
-            //                         DescricaoDanos = PD.DescricaoDanos
-            //                     },
-            //                     PerigoPotencial = new PerigoPotencial()
-            //                     {
-            //                         DescricaoEvento = PP.DescricaoEvento
-            //                     }
-
-            //                     }
-
-
-            //                 }
-            //                 ).ToList();
-
-            //ViewBag.Riscos = TipoRisco;
-
-            #endregion
-
-
-            var TipoRisco = (from EX in ExposicaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).DefaultIfEmpty()
-                             
-                             from TR in TipoDeRiscoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()                             
+            var TipoRisco = (from EX in ExposicaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                             join TR in TipoDeRiscoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                             on EX.idTipoDeRisco equals TR.IDTipoDeRisco
                              join ATE in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
                              on TR.idAtividadesDoEstabelecimento equals ATE.IDAtividadesDoEstabelecimento
                              join ATL in AtividadeAlocadaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
@@ -449,56 +386,47 @@ namespace GISWeb.Controllers
                              on TR.idPossiveisDanos equals PD.IDPossiveisDanos
                              join PP in PerigoPotencialBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
                              on TR.idPerigoPotencial equals PP.IDPerigoPotencial
-                             where EX.idAlocacao.Equals(idAlocacao) && EX.idAtividadeAlocada.Equals(idAtividadeAlocada) 
-                             select new 
+                             where EX.idAlocacao.Equals(idAlocacao) && EX.idAtividadeAlocada.Equals(idAtividadeAlocada)
+                             select new Exposicao()
                              {
-                                 //IDExposicao = EX.IDExposicao,
-                                 //TempoEstimado = EX.TempoEstimado,
-                                 //EExposicaoCalor = EX.EExposicaoCalor,
-                                 //EExposicaoInsalubre = EX.EExposicaoInsalubre,
-                                 //EExposicaoSeg = EX.EExposicaoSeg,
-                                 //EProbabilidadeSeg = EX.EProbabilidadeSeg,
-                                 //ESeveridadeSeg = EX.ESeveridadeSeg,
-                                 //idTipoDeRisco = EX.idTipoDeRisco,
+                                 IDExposicao = EX.IDExposicao,
+                                 TempoEstimado = EX.TempoEstimado,
+                                 EExposicaoCalor = EX.EExposicaoCalor,
+                                 EExposicaoInsalubre = EX.EExposicaoInsalubre,
+                                 EExposicaoSeg = EX.EExposicaoSeg,
+                                 EProbabilidadeSeg = EX.EProbabilidadeSeg,
+                                 ESeveridadeSeg = EX.ESeveridadeSeg,
+                                 idTipoDeRisco = EX.idTipoDeRisco,
 
-                                 EX.IDExposicao,
-                                 EX.TempoEstimado,
-                                 EX.EExposicaoCalor,
-                                 EX.EExposicaoInsalubre,
-                                 EX.EExposicaoSeg,
-                                 EX.EProbabilidadeSeg,
-                                 EX.ESeveridadeSeg,
-                                 EX.idTipoDeRisco,
+                                 AtividadeAlocada = new AtividadeAlocada()
+                                 {
+                                     idAtividadesDoEstabelecimento = ATL.idAtividadesDoEstabelecimento
+                                 },
 
-                                 //AtividadeAlocada = new AtividadeAlocada()
-                                 //{
-                                 //    idAtividadesDoEstabelecimento = ATL.idAtividadesDoEstabelecimento
-                                 //},
+                                 TipoDeRisco = new TipoDeRisco()
+                                 {
+                                     IDTipoDeRisco = TR.IDTipoDeRisco,
+                                     EClasseDoRisco = TR.EClasseDoRisco,
+                                     FonteGeradora = TR.FonteGeradora,
+                                     Tragetoria = TR.Tragetoria,
+                                     idPossiveisDanos = TR.idPossiveisDanos,
+                                     idEventoPerigoso = TR.idEventoPerigoso,
+                                     idPerigoPotencial = TR.idPerigoPotencial,
 
-                                 //TipoDeRisco = new TipoDeRisco()
-                                 //{
-                                 //    IDTipoDeRisco = TR.IDTipoDeRisco,
-                                 //    EClasseDoRisco = TR.EClasseDoRisco,
-                                 //    FonteGeradora = TR.FonteGeradora,
-                                 //    Tragetoria = TR.Tragetoria,
-                                 //    idPossiveisDanos = TR.idPossiveisDanos,
-                                 //    idEventoPerigoso = TR.idEventoPerigoso,
-                                 //    idPerigoPotencial = TR.idPerigoPotencial,
+                                     EventoPerigoso = new EventoPerigoso()
+                                     {
+                                         Descricao = EP.Descricao
+                                     },
+                                     PossiveisDanos = new PossiveisDanos()
+                                     {
+                                         DescricaoDanos = PD.DescricaoDanos
+                                     },
+                                     PerigoPotencial = new PerigoPotencial()
+                                     {
+                                         DescricaoEvento = PP.DescricaoEvento
+                                     }
 
-                                 //    EventoPerigoso = new EventoPerigoso()
-                                 //    {
-                                 //        Descricao = EP.Descricao
-                                 //    },
-                                 //    PossiveisDanos = new PossiveisDanos()
-                                 //    {
-                                 //        DescricaoDanos = PD.DescricaoDanos
-                                 //    },
-                                 //    PerigoPotencial = new PerigoPotencial()
-                                 //    {
-                                 //        DescricaoEvento = PP.DescricaoEvento
-                                 //    }
-
-                                 //}
+                                 }
 
 
                              }
@@ -506,9 +434,78 @@ namespace GISWeb.Controllers
 
             ViewBag.Riscos = TipoRisco;
 
+
+            #region ConsultaEsquerda
+
+            //var TipoRisco = from EX in ExposicaoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).DefaultIfEmpty()
+            //                join TR in TipoDeRiscoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+            //                on EX.idTipoDeRisco equals TR.IDTipoDeRisco into _r
+            //                from _A in _r.DefaultIfEmpty()
+
+            //                join ATE in AtividadesDoEstabelecimentoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+            //                on _A.idAtividadesDoEstabelecimento equals ATE.IDAtividadesDoEstabelecimento into _t
+            //                from _T in _r.DefaultIfEmpty()
+
+            //                join ATL in AtividadeAlocadaBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+            //                on EX.idAtividadeAlocada equals ATL.IDAtividadeAlocada into _z
+            //                from _Z in _r.DefaultIfEmpty()
+
+            //                join EP in EventoPerigosoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+            //                on _A.idEventoPerigoso equals EP.IDEventoPerigoso into _e
+            //                from _E in _r.DefaultIfEmpty()
+
+            //                join PD in PossiveisDanosBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+            //                on _A.idPossiveisDanos equals PD.IDPossiveisDanos into _p
+            //                from _P in _r.DefaultIfEmpty()
+
+            //                join PP in PerigoPotencialBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+            //                on _A.idPerigoPotencial equals PP.IDPerigoPotencial into _Q
+            //                from _q in _r.DefaultIfEmpty()
+
+            //                where EX.idAlocacao.Equals(idAlocacao) && EX.idAtividadeAlocada.Equals(idAtividadeAlocada)
+            //                select new
+            //                {
+
+            //                    IDExposicao = EX.IDExposicao,
+            //                    TempoEstimado = EX.TempoEstimado,
+            //                    EExposicaoCalor = EX.EExposicaoCalor,
+            //                    EExposicaoInsalubre = EX.EExposicaoInsalubre,
+            //                    EExposicaoSeg = EX.EExposicaoSeg,
+            //                    EProbabilidadeSeg = EX.EProbabilidadeSeg,
+            //                    ESeveridadeSeg = EX.ESeveridadeSeg,
+            //                    idTipoDeRisco = EX.idTipoDeRisco,
+
+            //                    idAtividadesDoEstabelecimento = _Z.idAtividadesDoEstabelecimento,
+
+            //                    IDTipoDeRisco = _A.IDTipoDeRisco,
+            //                    EClasseDoRisco = _A.EClasseDoRisco,
+            //                    FonteGeradora = _A.FonteGeradora,
+            //                    Tragetoria = _A.Tragetoria,
+            //                    idPossiveisDanos = _A.idPossiveisDanos,
+            //                    idEventoPerigoso = _A.idEventoPerigoso,
+            //                    idPerigoPotencial = _A.idPerigoPotencial,
+
+
+            //                    Descricao = _E.EventoPerigoso.Descricao,
+
+            //                    DescricaoDanos = _P.PossiveisDanos.DescricaoDanos,
+
+            //                    DescricaoEvento = _q.PerigoPotencial.DescricaoEvento
+            //                };
+
+
+
+
+
+
+
+            //ViewBag.Riscos = TipoRisco;
+
+            #endregion
+
             List<string> risc = new List<string>();
 
-            foreach(var iten in TipoRisco)
+            foreach (var iten in TipoRisco)
             {
                 risc.Add(iten.idTipoDeRisco);
             }
