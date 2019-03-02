@@ -101,97 +101,9 @@
     <Compile Include="Business\Concrete\EstabelecimentoBusiness.cs" />
     <Compile Include="Business\Abstract\IFuncaoBusiness.cs" />
     <Compile Include="DI\GISNinjectModule.cs" />
-    <Compile Include="Migrations\201809021953222_v01.cs" />
-    <Compile Include="Migrations\201809021953222_v01.Designer.cs">
-      <DependentUpon>201809021953222_v01.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809022004554_insereDepartamento.cs" />
-    <Compile Include="Migrations\201809022004554_insereDepartamento.Designer.cs">
-      <DependentUpon>201809022004554_insereDepartamento.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809022112463_v05.cs" />
-    <Compile Include="Migrations\201809022112463_v05.Designer.cs">
-      <DependentUpon>201809022112463_v05.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809072041587_v06.cs" />
-    <Compile Include="Migrations\201809072041587_v06.Designer.cs">
-      <DependentUpon>201809072041587_v06.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809072132143_v07.cs" />
-    <Compile Include="Migrations\201809072132143_v07.Designer.cs">
-      <DependentUpon>201809072132143_v07.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809081605044_v08.cs" />
-    <Compile Include="Migrations\201809081605044_v08.Designer.cs">
-      <DependentUpon>201809081605044_v08.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809081738007_v09.cs" />
-    <Compile Include="Migrations\201809081738007_v09.Designer.cs">
-      <DependentUpon>201809081738007_v09.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809082022035_v10.cs" />
-    <Compile Include="Migrations\201809082022035_v10.Designer.cs">
-      <DependentUpon>201809082022035_v10.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809082127477_v11.cs" />
-    <Compile Include="Migrations\201809082127477_v11.Designer.cs">
-      <DependentUpon>201809082127477_v11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809091040283_v13.cs" />
-    <Compile Include="Migrations\201809091040283_v13.Designer.cs">
-      <DependentUpon>201809091040283_v13.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201809131942591_v14.cs" />
-    <Compile Include="Migrations\201809131942591_v14.Designer.cs">
-      <DependentUpon>201809131942591_v14.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810071911208_v15.cs" />
-    <Compile Include="Migrations\201810071911208_v15.Designer.cs">
-      <DependentUpon>201810071911208_v15.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810132145480_v16.cs" />
-    <Compile Include="Migrations\201810132145480_v16.Designer.cs">
-      <DependentUpon>201810132145480_v16.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810132148575_v17.cs" />
-    <Compile Include="Migrations\201810132148575_v17.Designer.cs">
-      <DependentUpon>201810132148575_v17.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810132150319_v18.cs" />
-    <Compile Include="Migrations\201810132150319_v18.Designer.cs">
-      <DependentUpon>201810132150319_v18.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810132151334_v19.cs" />
-    <Compile Include="Migrations\201810132151334_v19.Designer.cs">
-      <DependentUpon>201810132151334_v19.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810132155135_v20.cs" />
-    <Compile Include="Migrations\201810132155135_v20.Designer.cs">
-      <DependentUpon>201810132155135_v20.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810132206441_v21.cs" />
-    <Compile Include="Migrations\201810132206441_v21.Designer.cs">
-      <DependentUpon>201810132206441_v21.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810201304026_v26.cs" />
-    <Compile Include="Migrations\201810201304026_v26.Designer.cs">
-      <DependentUpon>201810201304026_v26.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810201318506_v27.cs" />
-    <Compile Include="Migrations\201810201318506_v27.Designer.cs">
-      <DependentUpon>201810201318506_v27.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810201321013_v28.cs" />
-    <Compile Include="Migrations\201810201321013_v28.Designer.cs">
-      <DependentUpon>201810201321013_v28.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810211232557_v29.cs" />
-    <Compile Include="Migrations\201810211232557_v29.Designer.cs">
-      <DependentUpon>201810211232557_v29.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201810221555487_v30.cs" />
-    <Compile Include="Migrations\201810221555487_v30.Designer.cs">
-      <DependentUpon>201810221555487_v30.cs</DependentUpon>
+    <Compile Include="Migrations\201903022315512_v_01.cs" />
+    <Compile Include="Migrations\201903022315512_v_01.Designer.cs">
+      <DependentUpon>201903022315512_v_01.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -215,74 +127,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201809021953222_v01.resx">
-      <DependentUpon>201809021953222_v01.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809022004554_insereDepartamento.resx">
-      <DependentUpon>201809022004554_insereDepartamento.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809022112463_v05.resx">
-      <DependentUpon>201809022112463_v05.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809072041587_v06.resx">
-      <DependentUpon>201809072041587_v06.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809072132143_v07.resx">
-      <DependentUpon>201809072132143_v07.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809081605044_v08.resx">
-      <DependentUpon>201809081605044_v08.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809081738007_v09.resx">
-      <DependentUpon>201809081738007_v09.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809082022035_v10.resx">
-      <DependentUpon>201809082022035_v10.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809082127477_v11.resx">
-      <DependentUpon>201809082127477_v11.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809091040283_v13.resx">
-      <DependentUpon>201809091040283_v13.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809131942591_v14.resx">
-      <DependentUpon>201809131942591_v14.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810071911208_v15.resx">
-      <DependentUpon>201810071911208_v15.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810132145480_v16.resx">
-      <DependentUpon>201810132145480_v16.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810132148575_v17.resx">
-      <DependentUpon>201810132148575_v17.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810132150319_v18.resx">
-      <DependentUpon>201810132150319_v18.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810132151334_v19.resx">
-      <DependentUpon>201810132151334_v19.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810132155135_v20.resx">
-      <DependentUpon>201810132155135_v20.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810132206441_v21.resx">
-      <DependentUpon>201810132206441_v21.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810201304026_v26.resx">
-      <DependentUpon>201810201304026_v26.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810201318506_v27.resx">
-      <DependentUpon>201810201318506_v27.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810201321013_v28.resx">
-      <DependentUpon>201810201321013_v28.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810211232557_v29.resx">
-      <DependentUpon>201810211232557_v29.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201810221555487_v30.resx">
-      <DependentUpon>201810221555487_v30.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201903022315512_v_01.resx">
+      <DependentUpon>201903022315512_v_01.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
