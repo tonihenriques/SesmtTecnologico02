@@ -508,6 +508,7 @@
     <Content Include="Views\Exposicao\_Novo.cshtml" />
     <Content Include="Views\Admissao\_ListaExposicao.cshtml" />
     <Content Include="Views\PlanoDeAcao\_ListarPlanoDeAcao.cshtml" />
+    <Content Include="Views\AnaliseRisco\_ListaAtividadesDeRiscos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -526,7 +527,6 @@
     <Folder Include="Images\MedidasDeControle\" />
     <Folder Include="Images\Relatorios\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\AnaliseRisco\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GISCore\GISCore.csproj">

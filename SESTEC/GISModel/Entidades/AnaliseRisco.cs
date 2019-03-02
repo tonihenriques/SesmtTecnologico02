@@ -17,7 +17,10 @@ namespace GISModel.Entidades
         [Display(Name = "Empresa")]
         public string IDEmpresa { get; set; }
 
-        [Display(Name ="Alocação")]
+        [Display(Name ="Atividade Alocada")]
+        public string IDAtividadeAlocada { get; set; }
+
+        [Display(Name = "Alocação")]
         public string IDAlocacao { get; set; }
 
         [Display(Name = "Foto do empregado")]
@@ -34,6 +37,10 @@ namespace GISModel.Entidades
 
         [Display(Name ="Medidas de Controle")]
         public string IDControle { get; set; }
+
+        public virtual AtividadeAlocada AtividadeAlocada { get; set; }
+
+        public virtual Alocacao Alocacao{ get; set; }
 
 
 

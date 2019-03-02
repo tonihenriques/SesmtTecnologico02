@@ -22,6 +22,8 @@ namespace GISModel.DTO.AnaliseRisco
         public string IDAtividadeEstabelecimento { get; set; }
         public string IDAlocacao { get; set; }
 
+        public string idTipoDeRisco { get; set; }
+
 
     }
 }

@@ -20,6 +20,9 @@ namespace GISWeb.Controllers
         public IAtividadeAlocadaBusiness AtividadeAlocadaBusiness { get; set; }
 
 
+        [Inject]
+        public ITipoDeRiscoBusiness TipoDeRiscoBusiness { get; set; }
+
         // GET: AtividadeAlocada
         public ActionResult Novo(string id)
         {
@@ -45,6 +48,12 @@ namespace GISWeb.Controllers
                                      on Ambiente.IDAtividadesDoEstabelecimento equals Aloca.idAtividadesDoEstabelecimento
                                      into productGrupo
                                      from item in productGrupo.DefaultIfEmpty()
+
+                                     join TR in TipoDeRiscoBusiness.Consulta.Where(p => string.IsNullOrEmpty(p.UsuarioExclusao)).ToList()
+                                     on Ambiente.IDAtividadesDoEstabelecimento equals TR.idAtividadesDoEstabelecimento
+                                     into riscoGroup
+                                     from iten2 in riscoGroup.DefaultIfEmpty()
+
                                      select new AnaliseRiscosViewModel
                                      {
                                          DescricaoAtividade = Ambiente.DescricaoDestaAtividade,
@@ -53,23 +62,24 @@ namespace GISWeb.Controllers
                                          Imagem = Ambiente.Imagem,
                                          AlocaAtividade = (item == null ? false : true),
                                          IDAtividadeEstabelecimento = Ambiente.IDAtividadesDoEstabelecimento,
-                                         IDAlocacao = idAlocacao
+                                         IDAlocacao = idAlocacao,
+                                         idTipoDeRisco = iten2.IDTipoDeRisco
 
                                      };
+            
 
-
-                List<AnaliseRiscosViewModel> lAtividades = ListaAmbientes.ToList();
+                List<AnaliseRiscosViewModel> lAtividadesRiscos = ListaAmbientes.ToList();
 
 
 
                 AtividadesDoEstabelecimento oIDRiscosDoEstabelecimento = AtividadesDoEstabelecimentoBusiness.Consulta.FirstOrDefault(p => p.IDEstabelecimento.Equals(idEstabelecimento));
                 if (oIDRiscosDoEstabelecimento == null)
                 {
-                    return Json(new { resultado = new RetornoJSON() { Alerta = "Atividades não encontrada." } });
+                    return Json(new { resultado = new RetornoJSON() { Alerta = "Atividades de Riscos não encontrada." } });
                 }
                 else
                 {
-                    return Json(new { data = RenderRazorViewToString("_ListaAtividadeRisco", lAtividades), Contar = lAtividades.Count() });
+                    return Json(new { data = RenderRazorViewToString("_ListaAtividadesDeRiscos", lAtividadesRiscos), Contar = lAtividadesRiscos.Count() });
                 }
             }
             catch (Exception ex)
@@ -85,13 +95,8 @@ namespace GISWeb.Controllers
             }
 
         }
-
-
-
-
-
-
-
+        
+        //Esta salvando em AtividadesAlocadas, precisa salvar em analise de riscos
         [HttpPost]
         public ActionResult SalvarAnaliseRisco(bool Acao, string idAtividadeEstabelecimento, string idAlocacao)
         {
